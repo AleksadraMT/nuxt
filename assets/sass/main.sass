@@ -1,0 +1,1345 @@
+@import './vars.sass'
+@import './fonts.sass'
+@import './general.sass'
+
+.wrapper
+  display: flex
+  min-height: 100vh
+  flex-direction: column
+  .content
+    flex: 1
+.popup
+  @media (max-width: 730px)
+    .content
+      margin: auto
+  @media (max-width: 480px)
+    .content
+      top: auto
+      bottom: auto
+      margin: 50px auto
+      height: auto
+      > .links
+        > .link
+          width: 33.3333%
+  .content
+    > .title
+      margin-bottom: 25px
+    > .text
+      line-height: 24px
+      margin-bottom: 25px
+      p
+        margin-bottom: 5px
+    > .links
+      margin-bottom: 20px
+      .link
+        display: inline-block
+        padding: 5px 25px
+        color: #4a4a4a
+        img
+          width: 50px
+          height: 50px
+
+.visible-on-small
+  display: none
+
+@media screen and (max-width: $s-screen)
+  .hide-on-small
+    display: none
+
+  .visible-on-small
+    display: block
+    &--flex
+      display: flex
+
+.subpage-heading
+  font-size: 42px
+  font-weight: 300
+  text-align: center
+  margin-bottom: 40px
+  text-transform: none
+  color: #515255
+  line-height: 130%
+  @media screen and (max-width: $s-screen)
+    font-size: 30px
+
+.static-page-wrapper
+  padding-top: 40px
+
+.title-l
+  font-size: 42px
+  font-weight: 300
+  text-align: center
+  margin-bottom: 40px
+  text-transform: none
+  color: #515255
+  line-height: 130%
+
+p.type-l
+  font-size: 20px
+  line-height: 140%
+
+// PRODUCT ORDER
+
+.order-status
+  height: 54px
+  background: #000
+  transition: all 0.3s
+  color: #fff
+
+  &-fixed
+    z-index: 999
+    position: fixed
+    left: 0
+    top: 70px
+    width: 100%
+
+  &-mobile
+    display: flex
+    align-items: center
+    .mobile-row
+      flex: 1
+
+@media screen and (max-width: 991px)
+  .order-status
+    height: auto
+    background: #47484c
+
+    .container
+      max-width: 100%
+
+    &-fixed
+      top: auto
+      bottom: 0
+
+    &-mobile
+      .order-info-cell
+        padding: 0 5px 0 25px
+        border-color: #eaeaea
+
+      .order-info-btn
+        margin: 0
+
+        &.order-info-mobile-price
+          padding: 0 25px 0 5px
+
+@media screen and (max-width: 700px)
+  .order-status-mobile
+    flex-wrap: wrap
+    flex-direction: column-reverse
+    .mobile-row
+      width: 100%
+      display: flex
+      justify-content: center
+
+    .order-info
+      width: 100%
+
+      &-cell
+        flex: 1
+        justify-content: center
+        border: none
+      
+      &-mobile-steps
+        justify-content: flex-start
+
+      &-mobile-price
+        justify-content: flex-end
+
+      &-btn
+        flex: 1
+        display: flex
+        justify-content: center
+        align-items: center
+        vertical-align: middle
+        
+        &-back
+          max-width: 130px
+
+        .btn
+          justify-content: center
+          margin: 0
+          width: 100%
+
+.order-info
+  display: flex
+  align-items: center
+  justify-content: flex-end
+  height: 54px
+
+  &-cell
+    display: inline-flex
+    align-items: baseline
+    padding: 0 8px
+    line-height: 48px
+    &:not(:first-child)
+      border-left: 1px solid #95989a
+
+  &-text,
+  &-text-big
+    &:not(:first-child)
+      margin-left: 5px
+      white-space: nowrap
+
+  &-text
+    line-height: 1
+    font-size: 0.9rem
+
+  &-text-big
+    font-size: 1.6rem
+    font-weight: 700
+
+  &-btn
+    margin-left: 10px
+    .btn
+      display: inline-flex
+      align-items: center
+      vertical-align: middle
+      height: 54px
+      border-radius: 0
+      line-height: 1
+      font-size: .8rem
+      i
+        margin-left: 8px
+
+.model
+  &-title
+    color: #6b6b6b
+    h1
+      font-weight: 100
+      font-size: 2.8rem
+      margin-bottom: 0
+
+  &-desc
+    color: #6b6b6b
+    font-size: .9rem
+    font-weight: 100
+
+.model-char-list
+  margin-bottom: 0
+  padding: 0
+  list-style: none
+  &-item
+    padding: 5px 0
+    display: flex
+    justify-content: space-between
+    font-size: 0.875rem
+    &:not(:first-child)
+      border-top: 1px solid #95989a
+
+.check-list
+  margin: 20px 0 0
+  padding: 0
+  list-style: none
+  &-title
+    font-weight: 700
+  &-circle
+    color: #45b37e
+    padding: 4px
+    border-radius: 100%
+    margin-right: 5px
+    font-size: 12px
+    display: flex !important
+    align-items: center
+    justify-content: center
+    min-width: 26px
+    max-width: 26px
+    min-height: 26px
+    max-height: 26px
+    align-self: flex-start
+    &:before
+      position: relative
+      top: 1px
+  &-item
+    font-size: 0.875rem
+    margin-bottom: 10px
+    display: inline-flex
+    width: 50%
+    align-items: center
+  &-text
+    padding-right: 10px
+    word-break: break-word
+
+.step
+  &-title
+    font-size: 1.625rem
+    font-weight: 300
+
+  &-text
+    font-size: 0.875rem
+    b
+      font-weight: 700
+
+  &-subtitle
+    padding: 10px
+    background: #ededed
+    font-size: 17px
+    font-weight: 500
+    &-info
+      display: flex
+      align-items: center
+
+  &-subtitle-container
+    padding: 0 10px
+
+// VEHICLE COLOR SELECT
+
+.color-check
+  display: flex
+  flex-wrap: wrap
+  @media screen and (max-width: 480px)
+    margin: 15px -5px 0
+
+  &-input
+    display: none
+
+    &:checked + .color-check-item .model-color
+      top: -2px
+      outline-color: #cccccc
+      justify-content: center
+      text-align: center
+      align-items: center
+      box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2)
+      i
+        opacity: 1
+
+  &-item
+    cursor: pointer
+    display: inline-flex
+    margin: 0 8px 8px 0
+    width: 30px
+    height: 30px
+    @media screen and (max-width: 767px)
+      width: 60px
+      height: 60px
+  
+    @media screen and (max-width: 480px)
+      padding: 0 5px
+      margin: 0 0 20px
+      width: 20%
+      height: auto
+
+    &:hover
+      .model-color
+        top: -2px
+        outline-color: #aaa
+        box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2)
+
+.model-color
+  position: relative
+  top: 0
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 100%
+  height: 100%
+  border: 1px solid #fff
+  outline: 1px solid #eee
+  transition: all 0.3s
+
+  @media screen and (max-width: 767px)
+    padding: 4px
+    align-items: flex-start
+    justify-content: flex-start
+
+  @media screen and (max-width: 480px)
+    padding: 20% 0
+
+  &-met
+    position: relative
+    &::after
+      content: ''
+      position: absolute
+      z-index: 5
+      width: 100%
+      height: 100%
+      background: linear-gradient(135deg, rgba(222, 227, 230, 0.7) 0%, rgba(232, 235, 237, 0.4) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(227, 234, 243, 0.4) 75%, rgba(216, 226, 239, 0.7) 100%)
+      top: 0
+      left: 0
+  i
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 18px
+    height: 18px
+    background: #fff
+    border-radius: 50%
+    opacity: 0
+    color: #515255
+    font-size: 0.7rem
+    transition: all 0.3s
+
+// GENERAL STEP RADIO BUTTONS
+
+.radio-block
+  cursor: pointer
+  display: block
+  margin: 0 0 15px
+  border: 2px solid #eee
+  font-size: 0.75rem
+  transition: all 0.3s
+  input
+    display: none
+
+  &-input
+    display: none
+    &:checked + .radio-block
+      border: 2px solid #85d4b0
+
+  &-title
+    padding: 7px
+    min-height: 57px
+    border-bottom: 1px solid #eee
+    text-align: center
+    word-break: break-word
+    display: flex
+    justify-content: center
+    align-items: center
+
+  &-info
+    padding: 4px
+    text-align: center
+
+  &:hover
+    box-shadow: 0px 1px 5px -2px rgba(0, 0, 0, 0.2)
+
+.pdf-link
+  display: inline-flex
+  align-items: center
+  color: #48b0ed
+  img
+    margin-right: 4px
+    height: 22px
+
+.equipment-list
+  margin-bottom: 0
+  li:nth-child(5) ~ li
+    display: none
+
+  &-show
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    color: #505050
+    text-decoration: none
+    &:hover
+      text-decoration: none
+
+.step-btn
+  cursor: pointer
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  width: 100%
+  height: 52px
+  border: none
+  background: #cccccc
+  color: #000
+  font-size: 1.1rem
+  font-weight: 700
+  i
+    margin-left: 8px
+    color: #000
+
+.cost-block
+  padding: 10px 15px
+  background: #58595b
+  color: #fff
+  &-header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    border-bottom: 1px solid #fff
+    @media screen and (max-width: 1200px)
+      flex-wrap: wrap
+
+  &-cont
+    padding-top: 15px
+
+  &-price
+    display: flex
+    align-items: centre
+    .num
+      display: inline-block
+      margin-right: 5px
+      font-size: 1.6em
+      font-weight: 500
+  &-title
+    font-size: 1.2rem
+    font-weight: 500
+  &-text
+    font-size: 0.875rem
+  &-values
+    line-height: 1
+    display: flex
+    flex-direction: column
+
+.custom-check
+  cursor: pointer
+  user-select: none
+  display: flex
+  align-items: flex-start
+
+  &.is-invalid
+    .check
+      border-color: #dc3545
+
+  &-input
+    visibility: hidden
+    display: none
+    &:checked + .check
+      border-color: #cccccc
+      background: #cccccc
+      img, svg
+        opacity: 1
+    &:disabled + .check
+      background: #ccc !important
+      border-color: #ccc !important
+      img, svg
+        opacity: 0.3 !important
+  .check
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    margin-right: 8px
+    width: 30px
+    height: 30px
+    border: 2px solid #b2b3b5
+    border-radius: 50%
+    font-size: 0.75rem
+    transition: all 0.3s
+    img, svg
+      opacity: 0
+      transition: all 0.3s
+  &-text
+    flex: 1
+    display: flex
+    font-size: 0.875rem
+    &-block
+      display: flex
+      flex-direction: column
+      max-width: 70%
+    &-description
+      color: #969696
+
+.advant
+  display: flex
+  &-img
+    margin-right: 10px
+    width: 40px
+  &-info
+    flex: 1
+  &-title
+    font-weight: 700
+  &-text
+    font-size: 0.9rem
+
+.result-model
+  &-img
+    margin: 0 auto
+    max-width: 500px
+
+  &-name
+    font-size: 40px
+    line-height: 1.5em
+    font-weight: 300
+    text-align: center
+    .model
+      font-weight: 600
+      &-title
+        font-weight: 100
+      &-title-vehicle
+        font-weight: 700 !important
+        font-size: 2.6rem
+
+  &-desc
+    margin-left: auto
+    margin-right: auto
+    max-width: 90%
+    color: #8f8f8f
+    font-size: 16px
+    text-align: center
+
+@media screen and (max-width: 991px)
+  .result-model-name
+    font-size: 20px
+    font-weight: 500
+    .model
+      display: block
+      margin-top: 10px
+      font-size: 35px
+      line-height: 1.1em
+      font-weight: 300
+      &:after
+        content: ''
+        display: block
+        margin: 20px 10px 0
+        width: calc(100% - 20px)
+        height: 1px
+        background: #707070
+  .result-model-desc
+    display: none
+    + .title-separ
+      margin-top: 20px
+      &:before,
+      &:after
+        display: none
+      .title-separ-text
+        margin: 0
+    ~ .row-steps
+      margin-top: 20px
+
+.title-separ
+  display: flex
+  align-items: center
+  justify-content: center
+  font-size: 35px
+  font-weight: 300
+  &-text
+    margin: 0 20px
+  &:before,
+  &:after
+    flex: 1
+    content: ''
+    display: block
+    height: 1px
+    background: #707070
+
+.next-step
+  margin-bottom: 20px
+  &-icon
+    display: flex
+    align-items: center
+    justify-content: center
+    margin: 0 auto
+    width: auto !important
+    height: auto !important
+    border-radius: 50%
+    background: transparent
+    img
+      max-width: 120px
+      max-height: 120px
+    svg
+      fill: #bebebe
+      path:not([data-fill-none])
+        fill: #000
+  &-num
+    display: flex
+    align-items: center
+    color: #cccccc
+    font-size: 40px
+    font-weight: 300
+    text-align: center
+    .num
+      margin: 0 10px
+    &:before,
+    &:after
+      flex: 1
+      content: ''
+      display: block
+      height: 1px
+      border-top: 4px dotted #ebebeb
+  &-title
+    font-size: 20px
+    font-weight: 600
+    text-align: center
+    word-break: break-all
+  &-desc
+    margin-top: 10px
+    font-size: 13px
+    text-align: center
+    font-weight: 100
+
+.row-steps
+  .col-12:first-child
+    .next-step-num:before
+      border-color: transparent
+  .col-12:last-child
+    .next-step-num:after
+      border-color: transparent
+  .col-12:not(:last-child)
+    .next-step-num
+      position: relative
+      span:after
+        content: '>'
+        position: absolute
+        display: flex
+        align-items: center
+        justify-content: center
+        margin: auto
+        top: 0
+        bottom: 0
+        right: -20px
+        width: 10px
+        color: #ebebeb
+        font-size: 24px
+        font-weight: 600
+
+@media screen and (max-width: 991px)
+  .next-step
+    display: flex
+    margin-left: 10px
+    margin-right: 10px
+    &-icon
+      margin: 0
+      width: auto !important
+      height: auto !important
+      background: transparent
+      img
+        max-width: 40px
+        max-height: 40px
+    &-num
+      display: none
+    &-text
+      flex: 1
+    &-title
+      padding-left: 30px
+      text-align: left
+      font-size: 16px
+    &-desc
+      margin-top: 8px
+      padding-left: 30px
+      text-align: left
+      font-size: 14px
+
+.vehicle-desc-block
+  padding-top: 60px
+  @media screen and (max-width: 768px)
+    padding-top: 10px
+
+.order-steps
+  display: flex
+  align-items: center
+  margin: 0
+  padding: 0
+  list-style: none
+  li
+    height: 54px
+    display: flex
+    align-items: center
+    transition: 0.5s
+    &:not(:last-child)
+      border-right: 1px solid #95989a
+      box-sizing: padding-box
+    &.active
+      background: #cccccc
+      color: #fff
+    &:not(.active):hover
+      cursor: pointer
+      background: rgba(204, 204, 204, 0.5)
+    &.active + li .order-steps-item
+      border-left: 0
+
+.order-steps-item
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  padding: 0 15px
+  min-width: 80px
+  height: 54px
+  color: #fff
+  &:hover
+    color: #fff
+    text-decoration: none
+  .num
+    line-height: 1
+    text-align: center
+    font-size: 1.2rem
+    font-weight: 700
+  span
+    font-size: 0.9rem
+
+.order-info-mobile-steps .text
+  font-size: 1  
+
+.round-btn
+  color: #fff
+  margin-top: 15px
+  display: inline-block
+  padding: 8px 30px
+  color: #fff
+  background: #2da8ec
+  font-size: 16px
+  text-align: center
+  border-radius: 100px
+  font-weight: 800
+  position: relative
+  overflow: hidden
+  transition: all .3s ease
+  cursor: pointer
+  outline: 0
+  border: 0
+
+  &.white-bg
+    border-bottom: none
+    background: #fff
+    color: #343434
+
+  &:hover
+    background: #0c8ed6
+    color: #fff
+    text-decoration: none
+
+.banner-content
+  color: #fff
+  text-align: left
+
+  &-wrapper
+    display: flex
+    flex-direction: column
+    align-content: center
+    justify-content: center
+    align-items: center
+    height: 100%
+
+  .round-btn
+    margin: 0 10px
+
+  ul
+    margin: 0 0 20px
+    padding: 0
+
+.banner-checklist 
+  h3
+    margin-top: 14px
+    font-weight: 100
+    @media screen and (max-width: 480px)
+      font-size: 20px
+
+  li
+    display: inline-block
+    margin: 0 6px 15px
+    @media screen and (max-width: 480px)
+      font-size: 13px
+
+  .icon-check
+    top: 4px
+    position: relative
+    display: inline-block
+    background: #A3CF78
+    width: 20px
+    height: 20px
+    border-radius: 20px
+    margin: 0 15px
+
+    &:after
+      content: ''
+      position: absolute
+      width: 15px
+      height: 16px
+      background-image: url(/assets/img/check2.png)
+      background-size: contain
+      top: 50%
+      left: 50%
+      margin-left: -5px
+      margin-top: -11px
+
+.finance-forms
+  &-wrapper
+    background-color: #e6e6e6
+
+  &-list
+    padding-left: 60px
+    display: flex
+    flex-wrap: wrap
+    @media screen and (max-width: 768px)
+      padding-left: 30px
+    @media screen and (max-width: 480px)
+      padding-left: 10px
+      width: 100%
+
+  &-label
+    margin: 5px 25px 5px 0
+    &:last-child
+      margin-right: 0
+    @media screen and (max-width: 768px)
+      margin-right: 15px
+    @media screen and (max-width: 480px)
+      margin-right: 10px
+
+    .check
+      @media screen and (max-width: 768px)
+        width: 22px
+        height: 22px
+        margin-right: 5px
+      @media screen and (max-width: 480px)
+        width: 16px
+        height: 16px
+        margin-right: 5px
+
+  &-title
+    font-weight: 600
+    padding: 5px 0
+    white-space: nowrap
+    font-size: 19px
+    @media screen and (max-width: 768px)
+      font-size: 15px
+    @media screen and (max-width: 480px)
+      font-size: 12px
+
+  &-collection
+    padding: 10px 15px
+    display: flex
+    align-items: flex-start
+    &.hide
+      display: none
+
+  &-text
+    font-size: 18px
+    font-weight: 100
+    @media screen and (max-width: 768px)
+      font-size: 15px
+    @media screen and (max-width: 480px)
+      font-size: 10px
+
+.costs-list-content
+  .vue-slider-process
+    background-color: #ccc
+
+  .vue-slider-dot-handle
+    background-color: #ccc
+    &:after
+      content: ''
+      position: absolute
+      left: calc(50% - 10px)
+      top: -11px
+      border-left: 10px solid transparent
+      border-right: 10px solid transparent
+      border-top: 10px solid #ccc
+
+.vue-slider-dot-tooltip-top
+  background-color: #ccc
+  white-space: nowrap
+  padding: 2px 6px
+  border-radius: 5px
+  position: relative
+
+.tooltip-text-small
+  font-size: 12px
+
+.was-validated .form-control:invalid, .form-control.is-invalid
+  background-image: none
+
+.costs-list-title
+  transition: all .2s
+
+.custom-style-box
+  padding: 15px 0 0 15px
+
+  ul
+    padding-left: 25px
+
+.info-block
+  position: relative
+
+  .close
+    position: absolute
+    right: 10px
+    top: 10px
+    cursor: pointer
+    font-size: 30px
+    color: #666
+    transition: color .2s
+    &:hover
+      color: #000
+
+    &:after
+      content: ''
+      width: 22px
+      height: 22px
+      background-color: #fff
+      position: absolute
+      display: inline-block
+      right: 4px
+      top: 4px
+      z-index: -1
+      border-radius: 100%
+
+.filter
+  padding: 10px 0 20px
+  background: #808285
+  color: #fff
+  display: flex
+  justify-content: center
+  @media screen and (max-width: 480px)
+    margin-top: 0
+  &-wrapper
+    display: flex
+    align-items: flex-end
+    justify-content: center
+    width: 850px
+    margin: auto
+    @media screen and (max-width: 992px)
+      width: 720px
+    @media screen and (max-width: 768px)
+      width: calc(100% - 40px)
+      flex-direction: column
+      align-items: center
+
+
+  &-btns-container
+    display: flex
+    align-self: flex-start
+    height: 100%
+    padding-top: 32px
+    @media screen and (max-width: 768px)
+      width: 100%
+      padding-top: 15px
+
+    @media screen and (min-width: 769px)
+      &.active
+        flex-direction: column-reverse
+        justify-content: space-between
+        align-self: flex-start
+        div:first-child
+          padding-top: 32px
+
+  .collapse
+    &-box
+      min-height: 25px
+      position: relative
+    &-button
+      text-align: right
+      position: absolute
+      top: 0
+      right: 0
+      z-index: 1
+      @media screen and (max-width: 575px)
+        position: relative
+  h3
+    margin-top: 15px
+    margin-bottom: 35px
+    font-weight: 100
+    font-size: 2rem
+  .btn.btn-search
+    width: 100%
+    padding: 7px 20px
+    border-radius: 0
+    background: #ccc
+    color: #000
+    &:active, &:focus
+      outline: none
+      box-shadow: none
+  &-container
+    margin: 0 -7.5px
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+    align-items: flex-end
+    flex-wrap: wrap
+    max-width: 580px
+    @media screen and (max-width: 992px)
+      width: 465px
+    @media screen and (max-width: 768px)
+      width: 100%
+
+    &-bottom
+      display: flex
+      align-items: flex-end
+      flex-direction: row
+      justify-content: space-between
+  &-item
+    padding: 0 7.5px 20px
+    width: 143px
+    &.item-hidden
+      visibility: hidden
+      opacity: 0
+      height: 0!important
+      padding: 0!important
+    @media screen and (max-width: 992px)
+      width: 114px
+    @media screen and (max-width: 768px)
+      width: 143px
+      flex-basis: 50%
+      padding: 8px
+
+    .dropdown
+      width: 100%
+
+  .btn
+    white-space: nowrap
+    height: 40px
+    font-size: .8rem
+    padding: 7px 10px
+    @media screen and (max-width: 992px)
+      font-size: .65rem
+    @media screen and (max-width: 480px)
+      font-size: .6rem
+      padding: 10px 15px
+    &-reset
+      width: 100%
+      border-radius: 0
+      background: #ccc
+      color: #000
+      &:active, &:focus
+        outline: none
+        box-shadow: none
+      &:hover
+        background: #b3b3b3
+        color: #000
+    &-collapse
+      padding: 5px 15px
+      position: relative
+      transition: 0.5s
+      align-items: center
+      display: flex
+      justify-content: flex-end
+      .text
+        margin-right: 36px
+        vertical-align: middle
+        font-size: 12px
+      .bar
+        position: absolute
+        width: 25px
+        height: 2px
+        background: #fff
+        margin: auto
+        top: 0
+        bottom: 0
+        transition: 0.5s
+        &::before, &::after
+          content: ''
+          position: absolute
+          width: inherit
+          height: inherit
+          background: #fff
+          left: 0
+          transition: inherit
+        &::before
+          top: -10px
+        &::after
+          bottom: -10px
+        &.show
+          background: transparent
+          &::before
+            transform: translateY(7px) rotateZ(45deg)
+          &::after
+            transform: translateY(-7px) rotateZ(-45deg)
+
+  &-sort-block
+    padding: 10px 0
+    > .container
+      flex-direction: column
+    @media screen and (max-width: 480px)
+      .page-filter
+        display: flex
+        align-items: center
+        justify-content: flex-end
+        .custom-select-title
+          padding: 0
+
+      .page-filter + .page-filter
+        margin-top: 10px
+
+  .drop-down label
+    min-height: 22px
+    white-space: nowrap
+    font-size: 13px
+
+.show-more
+  display: flex
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  font-size: .9rem
+  &-row
+    margin: 15px auto 5px
+  &-sign
+    width: 28px
+    height: 28px
+    margin: 0 10px 0 0
+    border-radius: 100%
+    display: inline-block
+    position: relative
+    &:before, &:after
+      content: ''
+      background-size: 30px
+      background-position: -1px -1px
+      background-repeat: no-repeat
+      background-color: #000
+      border-radius: 100%
+      width: 28px
+      height: 28px
+      display: inline-block
+      position: absolute
+      left: 0
+      top: 0
+    svg
+      position: absolute
+      top: -1px
+      left: -1px
+      width: 30px
+      height: 30px
+      z-index: 1
+
+  @media screen and (max-width: 767px)
+    margin: 15px 0 20px
+
+.btn-search
+  &-first
+    @media screen and (max-width: 767px)
+      display: none
+  &-second
+    display: none
+    &-btn
+      @media screen and (min-width: 768px)
+        display: inline-block !important
+    @media screen and (max-width: 767px)
+      display: inline-block
+
+.filter-container
+  &-wrap
+    flex-wrap: wrap
+  &-col
+    margin: auto
+
+.seo
+  &-show-more
+    padding-top: 55px
+
+  &-show-more-text
+    padding-top: 10px
+    text-align: center
+    width: 100px
+    margin: auto
+    cursor: pointer
+
+  &-arrow
+    display: flex
+    justify-content: center
+    width: 20px
+    margin: auto
+    &.show
+      transform: rotate(180deg)
+    &:hover
+      .seo-line
+        top: 5px
+
+  &-line-block
+    position: relative
+    cursor: pointer
+    width: 10px
+    height: 10px
+
+  &-line
+    width: 2px
+    height: 100%
+    background-color: #707070
+    position: relative
+    top: 0
+    transition: top .2s
+
+    &-left
+      transform: rotate(-45deg)
+      right: -6px
+
+    &-right
+      transform: rotate(45deg)
+      right: -2px
+
+.filter-uniq-type
+  display: flex
+  align-items: center
+  justify-content: center
+
+  &-desktop
+    justify-content: flex-start
+
+  &-mobile > div
+    width: 40%
+    @media screen and (max-width: 767px)
+      width: 50%
+  &-container
+    background: #e4e4e4
+    padding: 15px 0
+    margin-bottom: 10px
+    @media screen and (max-width: 767px)
+      margin-bottom: 0
+      margin-top: 2px
+
+  .drop-down-toggle
+    background-color: #ffffff
+    height: 50px
+    font-size: 20px
+    @media screen and (max-width: 767px)
+      height: 40px
+      font-size: 15px
+  
+  .filter-item-uniq
+    width: 60%
+    margin: auto
+    @media screen and (max-width: 767px)
+      width: 100%
+  
+  .filter-title-uniq
+    font-weight: 600
+    padding: 5px 15px 5px 0
+    white-space: nowrap
+    font-size: 19px
+    @media screen and (max-width: 767px)
+      white-space: normal
+      font-size: 0.9375rem
+
+.uniq-types
+  &-list
+    display: flex
+    padding-left: 40px
+
+  &-option
+    display: flex
+    justify-content: center
+    align-items: center
+    margin: -15px 0
+    padding: 20px 25px 10px
+    background-color: transparent
+    transition: background-color .3s
+    cursor: pointer
+    position: relative
+    &.active
+      background-color: #c7c7c7
+    label
+      margin: 0
+      cursor: pointer
+    label > span
+      display: flex
+      justify-content: center
+      flex-direction: column
+      align-items: center
+    
+    &:hover
+      background-color: #c7c7c7
+
+    img
+      max-height: 40px
+      margin-bottom: 10px
+
+    input[type="radio"]
+      display: none
+      position: absolute
+      width: 100%
+      height: 100%
+      top: 0
+      right: 0
+      left: 0
+      bottom: 0
+      cursor: pointer
+      z-index: 1
+
+.add-svg
+  fill: #008C7D
+
+.remove-svg
+  fill: #008C7D
+
+.faq-links-icon
+  fill: #008C7D
+
+.container-user
+  padding-right: 20px
+  padding-left: 20px
+  margin: auto
+  @media (min-width: 992px)
+    max-width: 970px
+  @media (min-width: 1200px)
+    max-width: 1248px

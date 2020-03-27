@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 148 148">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff5200;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="Group_651" data-name="Group 651" transform="translate(-547 -582)">
+    <circle id="Ellipse_15" data-name="Ellipse 15" class="cls-1" cx="74" cy="74" r="74" transform="translate(547 582)"/>
+    <g id="ic_directions_car_black_24px" transform="translate(585 617)">
+      <path id="Path_12" data-name="Path 12" d="M51.145,8.054A4.519,4.519,0,0,0,46.851,5H13.585A4.548,4.548,0,0,0,9.29,8.054L3,26.169V50.363a3.033,3.033,0,0,0,3.024,3.024H9.048a3.033,3.033,0,0,0,3.024-3.024V47.339h36.29v3.024a3.033,3.033,0,0,0,3.024,3.024h3.024a3.033,3.033,0,0,0,3.024-3.024V26.169ZM13.585,38.266a4.536,4.536,0,1,1,4.536-4.536A4.53,4.53,0,0,1,13.585,38.266Zm33.266,0a4.536,4.536,0,1,1,4.536-4.536A4.53,4.53,0,0,1,46.851,38.266ZM9.048,23.145,13.585,9.536H46.851l4.536,13.609Z" transform="translate(6.073 10.121)"/>
+      <path id="Path_13" data-name="Path 13" class="cls-2" d="M0,0H72.581V72.581H0Z"/>
+    </g>
+  </g>
+</svg>

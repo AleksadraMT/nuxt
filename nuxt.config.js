@@ -48,9 +48,8 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {
-    baseURL: 'https://dev-app.ecarsuite.com/api/',
-    https: true
+  env: {
+    BASE_URL: 'https://dev-app.ecarsuite.com/api/'
   },
   /*
    ** Build configuration

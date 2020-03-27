@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 148 148">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff5200;
+      }
+    </style>
+  </defs>
+  <g id="Group_653" data-name="Group 653" transform="translate(-977 -582)">
+    <circle id="Ellipse_17" data-name="Ellipse 17" class="cls-1" cx="74" cy="74" r="74" transform="translate(977 582)"/>
+    <g id="checkbox-pen-outline" transform="translate(1026.481 621.989)">
+      <g id="Group_616" data-name="Group 616" transform="translate(0 1.011)">
+        <g id="Group_615" data-name="Group 615">
+          <path id="Path_16" data-name="Path 16" d="M51,7.342l-5.488-5.48a2.91,2.91,0,0,0-4.111,0l-4.39,4.377,9.6,9.581L51,11.443A2.9,2.9,0,0,0,51,7.342Z" transform="translate(9.49 -1.011)"/>
+          <path id="Path_17" data-name="Path 17" d="M14.336,33.2l9.6,9.582L50.375,16.386,40.777,6.8Z" transform="translate(3.676 0.474)"/>
+          <path id="Path_18" data-name="Path 18" d="M13.105,29.441,11.056,41.066,22.7,39.022Z" transform="translate(2.835 6.278)"/>
+          <path id="Path_19" data-name="Path 19" d="M42.475,51.483H6.283V15.293H31.824l6.294-6.282H4.063A4.075,4.075,0,0,0,0,13.074V53.7a4.074,4.074,0,0,0,4.063,4.062h40.63A4.074,4.074,0,0,0,48.754,53.7V24.654l-6.282,6.272,0,20.557Z" transform="translate(0 1.04)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
