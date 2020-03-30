@@ -1,6 +1,6 @@
 # Leaseonline
 
-> My solid Nuxt.js project
+> Nuxt.js project
 
 ## Build Setup
 

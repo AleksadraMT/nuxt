@@ -9,3 +9,13 @@
     div Zendesk FAQ
     div SEO big block
 </template>
+
+<script>
+import Maintenance from './../../components/Common/Maintenance'
+
+export default {
+  components: {
+    Maintenance
+  }
+}
+</script>

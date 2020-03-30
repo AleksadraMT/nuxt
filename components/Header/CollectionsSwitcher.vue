@@ -1,5 +1,5 @@
 <template lang="pug">
-  .abstract-forms.hide-on-small
+  .abstract-forms.hide-on-small( v-if="collection.length > 1" )
     label(
       class="abstract-forms-item"
       v-for="(item, key) in collection"
@@ -10,10 +10,10 @@
         name="abstract-form"
         class="abstract-forms-input"
         :value="`${item.toLowerCase()}`"
-        :checked="item.toLowerCase() === finFormsCollectionName"
+        :checked="item.toLowerCase() === financeFormCollectionName"
         @change="changeCollection(item)"
       )
-      span(:class="{'active-collection': item.toLowerCase() === finFormsCollectionName}") {{ getCollectionName(item) }}
+      span(:class="{'active-collection': item.toLowerCase() === financeFormCollectionName}") {{ getCollectionName(item) }}
 </template>
 
 <script>
@@ -27,12 +27,12 @@ export default {
     ...mapGetters({
       collection: 'reseller/getFormsCollection'
     }),
-    finFormsCollectionName: {
+    financeFormCollectionName: {
       get() {
-        return this.$store.state.reseller.finFormsCollectionName
+        return this.$store.state.reseller.financeFormCollectionName
       },
       set(value) {
-        this.$store.commit('reseller/setfinFormsCollectionName', value)
+        this.$store.commit('reseller/setFinanceFormsCollectionName', value)
       }
     }
   },

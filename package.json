@@ -1,7 +1,7 @@
 {
   "name": "Leaseonline",
   "version": "1.0.0",
-  "description": "My solid Nuxt.js project",
+  "description": "Sök, jämför & beställ din bil online. Stort urval och bra priser!",
   "author": "aleksandramt",
   "private": true,
   "scripts": {
