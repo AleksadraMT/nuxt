@@ -1,5 +1,8 @@
 export const state = () => ({
-  maintenanceMode: false
+  maintenanceMode: false,
+  subMenuVisibility: false,
+  brandListVisible: false,
+  categoriesListVisible: false
 })
 
 export const getters = {
@@ -7,7 +10,11 @@ export const getters = {
 }
 
 export const mutations = {
-  setMaintenanceMode: (state, value) => (state.maintenanceMode = value)
+  setMaintenanceMode: (state, value) => (state.maintenanceMode = value),
+  setSubMenuVisibility: (state, value) => (state.subMenuVisibility = value),
+  setBrandListVisible: (state, value) => (state.brandListVisible = value),
+  setCategoriesListVisible: (state, value) =>
+    (state.categoriesListVisible = value)
 }
 
 export const actions = {

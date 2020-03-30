@@ -1,10 +1,10 @@
 import LandingsApi from '~/api/landings'
 
 export const state = () => ({
-  allLandings: {},
-  brandLanding: {},
-  modelsLandings: {},
-  categoriesLandings: {}
+  allLandings: [],
+  brandLanding: [],
+  modelsLandings: [],
+  categoriesLandings: []
 })
 
 export const getters = {

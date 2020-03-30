@@ -1,5 +1,5 @@
 <template lang="pug">
-  .abstract-forms.hide-on-small( v-if="collection.length > 1" )
+  div(:class="customClass" v-if="collection.length > 1" )
     label(
       class="abstract-forms-item"
       v-for="(item, key) in collection"
@@ -23,6 +23,9 @@ import Helper from '~/mixins/Helper'
 
 export default {
   mixins: [Helper],
+  props: {
+    customClass: String
+  },
   computed: {
     ...mapGetters({
       collection: 'reseller/getFormsCollection'
