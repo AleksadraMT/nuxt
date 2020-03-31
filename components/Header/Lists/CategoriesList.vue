@@ -7,7 +7,7 @@
         .columns
           ul
             li(v-for="(type, index) in categoriesLandings" :key="index")
-              router-link(
+              nuxt-link(
                 :to="`/${$route.params.base}/biltyper${type.url}`"
                 ) {{ type.title }}
 </template>
@@ -19,11 +19,11 @@ export default {
   name: 'CategoriesList',
   computed: {
     ...mapState('settings', ['categoriesListVisible']),
-    ...mapState('landings', ['categoriesLandings'])
+    ...mapState('landing', ['categoriesLandings'])
   }
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 @import '~/assets/sass/components/Header/CategoriesList.sass'
 </style>

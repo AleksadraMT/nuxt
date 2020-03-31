@@ -5,9 +5,9 @@
         h2.subpage-heading Våra varumärken
       div
         ul.brands-list
-          li.brands-item(v-for="(link, index) in brandsList" :key="index")
-            router-link.brand.brand-icon( 
-              :to="{ name: 'brandlanding', params: {base: $route.params.base, landingUrl: getBrandParam(link), brand: getBrandParam(link)}}"
+          li.brands-item(v-for="(link, index) in allLandings" :key="index")
+            nuxt-link.brand.brand-icon( 
+              :to="{ name: 'base-brandLanding', params: {base: $route.params.base, brandLanding: getBrandParam(link)} }"
             )
               .inner
                 img(
@@ -23,11 +23,13 @@ export default {
   name: 'BrandsList',
   computed: {
     ...mapState('settings', ['brandListVisible']),
-    ...mapState('landings', ['allLandings'])
+    ...mapState('landing', ['allLandings'])
   },
   methods: {
     getBrandParam(obj) {
       const brand = obj.brand.name
+
+      // console.log(this.$route.params)
 
       return brand.toLocaleLowerCase().replace(/ /g, '-')
     }
@@ -35,6 +37,6 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 @import '~/assets/sass/components/Header/BrandsList.sass'
 </style>

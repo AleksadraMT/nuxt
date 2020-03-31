@@ -10,5 +10,5 @@
 </template>
 
 <style lang="sass">
-@import '~/assets/sass/components/Maintenance.sass'
+@import '~/assets/sass/components/Common/Maintenance.sass'
 </style>

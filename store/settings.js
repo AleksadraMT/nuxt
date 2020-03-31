@@ -2,7 +2,8 @@ export const state = () => ({
   maintenanceMode: false,
   subMenuVisibility: false,
   brandListVisible: false,
-  categoriesListVisible: false
+  categoriesListVisible: false,
+  isHomePage: true
 })
 
 export const getters = {
@@ -14,7 +15,8 @@ export const mutations = {
   setSubMenuVisibility: (state, value) => (state.subMenuVisibility = value),
   setBrandListVisible: (state, value) => (state.brandListVisible = value),
   setCategoriesListVisible: (state, value) =>
-    (state.categoriesListVisible = value)
+    (state.categoriesListVisible = value),
+  setIsHomePage: (state, status) => (state.isHomePage = status)
 }
 
 export const actions = {

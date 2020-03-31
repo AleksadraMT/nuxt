@@ -1,5 +1,5 @@
 <template lang="pug">
-    router-link.logo(:to="{name: 'base', params: {base: $route.params.base}}" v-if="style.logoFont")
+    nuxt-link.logo(:to="{name: 'base', params: {base: $route.params.base}}" v-if="style.logoFont")
       img(:src="style.logoFont.logo" :alt="info.name")
 </template>
 

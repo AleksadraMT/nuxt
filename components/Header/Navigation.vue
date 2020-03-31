@@ -10,7 +10,7 @@
           i.nav-link-angle-down.fas.fa-angle-down.p-l-10.hide-on-small
       //- li.nav-item.scroll-item(@click="setSortVariant($event, 'asc')" data-id="filter")
       li.nav-item.scroll-item(data-id="filter")
-        router-link.nav-link(:to="{name: 'base', params: {base: $route.params.base}}")
+        nuxt-link.nav-link(:to="{name: 'base', params: {base: $route.params.base}}")
           img.nav-link-icon(src="~@/assets/img/header/icon-search.svg")
           span.nav-link-text Sök bil
       li.nav-item.hide-on-small

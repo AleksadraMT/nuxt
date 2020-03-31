@@ -1,0 +1,139 @@
+.faq
+  h2
+    color: #008C7D
+    font-size: 2rem
+    font-weight: 300
+    text-align: center
+    margin-bottom: 40px
+    text-transform: none
+    line-height: 130%
+
+  .large-12
+    width: 100%
+    position: relative
+    padding-left: 0.9375em
+    padding-right: 0.9375em
+
+  &-subtitle
+    text-align: center
+    padding-bottom: 40px
+    font-weight: 100
+  
+  &-categories
+    padding: 0 0 40px 0
+
+  &-columns 
+    margin-bottom: 40px
+  
+  &-question
+    display: flex
+    justify-content: space-between
+    margin: 0
+    font-size: 18px
+    color: #000
+    font-weight: 500
+    transition: all .3s ease
+
+    &:hover
+      text-decoration: none
+
+    .faq-show-more-plus
+      display: block
+    .faq-show-more-minus
+      display: none
+
+    &.active
+      color: #008C7D
+      
+      .faq-show-more-plus
+        display: none
+      .faq-show-more-minus
+        display: block
+
+    &.active + .faq-answer
+      display: block
+      animation: open 2s linear
+
+
+  &-plus
+    display: inline-block
+    font-size: 22px
+    height: 26px
+    width: 26px
+    border-radius: 50%
+    background: #008C7D
+    line-height: 27px
+    font-weight: 300
+    text-align: center
+    color: #fff
+    transition: transform .2s
+
+  &-answer
+    display: none
+    margin-top: 15px
+    
+    p
+      margin-top: 0
+      margin-bottom: 0
+      font-size: 16px
+      font-weight: 100
+      line-height: 150%
+
+    a
+      display: inline-block
+      color: #008C7D
+      font-weight: 300
+
+  &-show-more
+    min-width: 28px
+    min-height: 28px
+    width: 28px
+    height: 28px
+    margin: 0 10px 0 20px
+    border-radius: 100%
+
+    svg
+      width: 28px
+      height: 28px
+
+  &-question-wrapper:last-child
+    border-bottom: 1px solid #eee
+  
+  &-question-wrapper
+    padding: 20px 0
+    border-top: 1px solid #eee
+    overflow: hidden
+
+.anchor-list
+  width: 100%
+  overflow: hidden
+  text-align: center
+  margin-bottom: 40px
+  box-sizing: border-box
+  padding: 0 10px
+  li
+    display: inline-block
+    margin: 0 5px 10px
+    cursor: pointer
+
+    a,
+    span
+      display: inline-block
+      line-height: 37px
+      height: 37px
+      border: 1px solid #008C7D
+      padding: 0 9px
+      color: #515255
+      text-decoration: none
+      transition: all .2s
+
+      &:hover
+        background-color: #008C7D
+        color: #fff
+
+  @keyframes open
+    0%
+      height: 0
+    
+    100%
+      height: 100%

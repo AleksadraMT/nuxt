@@ -24,7 +24,10 @@ import Helper from '~/mixins/Helper'
 export default {
   mixins: [Helper],
   props: {
-    customClass: String
+    customClass: {
+      type: String,
+      default: ''
+    }
   },
   computed: {
     ...mapGetters({

@@ -1,0 +1,51 @@
+.slider
+  width: 100%
+  margin: auto
+  padding: 0 0 10px 0
+  overflow: hidden
+  @media (max-width: 767px)
+    padding: 0 0 10px 0
+  @media (min-width: 992px)
+    max-width: 970px
+  @media (min-width: 1200px)
+    max-width: 1248px
+  
+  .VueCarousel-navigation-button
+    font-size: 2.5rem
+    transform: translateY(0) translateX(0) !important
+    top: 29%
+    @media (max-width: 767px)
+      top: 22% !important
+    &:focus
+      outline: none !important
+
+  .VueCarousel-dot
+    background-color: #000 !important
+    border: 2px solid #000 !important
+    padding: 0 !important
+    margin: 10px 3px 0
+    &--active
+      background: transparent !important
+      border: 2px solid #999 !important
+      padding: 0 !important
+    &:focus
+      outline: none !important
+
+.VueCarousel-navigation-prev
+  left: -5px !important
+
+.VueCarousel-navigation-next
+  right: -5px !important
+
+.right-chevron
+  background: url('~@/assets/img/left-chevron.svg') 0 0 no-repeat
+  background-size: cover
+  width: 30px
+  height: 30px
+
+.left-chevron
+  background: url('~@/assets/img/left-chevron.svg') 0 0 no-repeat
+  background-size: cover
+  width: 30px
+  height: 30px
+  transform: rotate(180deg)

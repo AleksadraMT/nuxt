@@ -6,7 +6,7 @@
       ul.sub-menu-list
         li
           CollectionsSwitcher(
-            :customClass="'leasing-mobile-switcher.visible-on-small'"
+            :customClass="'leasing-mobile-switcher visible-on-small'"
           )
 
         li.sub-menu-item
@@ -17,7 +17,7 @@
           a.sub-menu-link.scroll-item( 
             href="#"
           )  Kundtjänst
-          router-link.sub-menu-link(
+          nuxt-link.sub-menu-link(
             v-if="isPrivate"
             :to="{ name: 'omleaseonline', params: {base: $route.params.base}}"
             ) Om Leaseonline
@@ -30,7 +30,7 @@
             :href="`/${$route.params.base}/bilmarken`"
             @click.prevent="SET({mutation: 'setBrandListVisible', value: !brandListVisible})"
           ) Bilmärken
-          router-link.sub-menu-link( 
+          nuxt-link.sub-menu-link( 
             :to="{ name: 'faq', params: {base: $route.params.base}}"
             ) Vanliga frågor och svar
           //- @click.prevent="scrollToBlock($event, 'home')"

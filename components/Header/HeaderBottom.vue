@@ -5,14 +5,14 @@
         h1.banner-heading Beställ din bil online.
         h5.banner-subheading Snabbt, enkelt & tryggt genom Leaseonline.
         .banner-content-btns
+          //- @click="setSortVariant($event, 'asc')"
           .white-btn.scroll-item(
             title="Sök bil nu!" 
             data-id="filter"
-            @click="setSortVariant($event, 'asc')"
           ) Sök
+          //- @click="setSortVariant($event, 'campaign')"
           .scroll-item( 
             data-id="list-sort"
-            @click="setSortVariant($event, 'campaign')"
           ) Se kampanjer
 
     .main-campaign-wrapper
@@ -33,3 +33,43 @@
               :href="campaigns.link"
             ) Beställ
 </template>
+
+<script>
+import { mapState } from 'vuex'
+import ProductApi from '~/api/product'
+
+export default {
+  computed: {
+    ...mapState('reseller', {
+      campaigns: (state) =>
+        state.siteStyle.campaigns && !!state.siteStyle.campaigns.data.length
+          ? state.siteStyle.campaigns.data[0]
+          : [],
+      token: (state) => state.token
+    }),
+    ...mapState('filters', {
+      financeFormId: (state) => state.finance_form_id,
+      typeId: (state) => state.type.type.id
+    })
+  },
+  methods: {
+    async getCampaignCar() {
+      const { link } = this.campaigns
+
+      if (!link) return false
+
+      const linkIdString = link.split('?id=')[1]
+      const linkId = Number.parseInt(linkIdString)
+
+      const response = await ProductApi.getVehicle({
+        id: linkId,
+        auth: this.token,
+        financeFormId: this.finance_form_id,
+        typeId: this.typeId
+      })
+
+      this.$set(this.$data, 'mainCampaign', response.data)
+    }
+  }
+}
+</script>
