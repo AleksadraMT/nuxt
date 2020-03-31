@@ -21,13 +21,13 @@ export const mutations = {
 
 export const getters = {
   getResellerInfo: (state) => state.resellerInfo,
-  getFormsCollection: (state, rootState) => {
+  getFormsCollection: (state) => {
     const finForms = state.resellerInfo.financeForms
 
     if (!(finForms && finForms.data.length)) return []
 
     const sortedCollection = [
-      ...new Set(finForms.data.map((item) => rootState.filters.type.type.id))
+      ...new Set(finForms.data.map((item) => item.type))
     ]
 
     return sortedCollection[0] !== 'Private'
@@ -41,7 +41,7 @@ export const getters = {
     if (!financeForms.length) return []
 
     const filteredFinanceForms = financeForms.filter(
-      (item) => rootState.filter.type.toLowerCase() === form
+      (item) => item.type.toLowerCase() === form
     )
 
     return filteredFinanceForms

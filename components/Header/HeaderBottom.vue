@@ -48,7 +48,7 @@ export default {
       token: (state) => state.token
     }),
     ...mapState('filters', {
-      financeFormId: (state) => state.finance_form_id,
+      finance_form_id: (state) => state.finance_form_id,
       typeId: (state) => state.type.type.id
     })
   },

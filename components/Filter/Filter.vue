@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'Filter',
+  name: 'UserFilter',
   components: {},
   props: {
     showFormsFilter: Boolean

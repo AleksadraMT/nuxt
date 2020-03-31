@@ -30,7 +30,7 @@
 <script>
 /* eslint-disable nuxt/no-globals-in-created */
 
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 import Logo from '~/components/Header/Logo.vue'
 import CollectionsSwitcher from '~/components/Header/CollectionsSwitcher.vue'
@@ -51,9 +51,9 @@ export default {
     CategoriesList,
     HeaderBottom
   },
-  data: () => ({
-    isHomePage: true
-  }),
+  computed: {
+    ...mapState('settings', ['isHomePage'])
+  },
   mounted() {
     const _this = this
 

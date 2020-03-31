@@ -7,9 +7,9 @@
       :paginationPadding="5"
       :perPage="1"
     )
-    //- Filter(
-    //-   :showFormsFilter="true"
-    //- )
+    UserFilter(
+      :showFormsFilter="true"
+    )
     div Cars List
     div SEO text
     div RECO
@@ -21,13 +21,13 @@
 <script>
 import Maintenance from './../../components/Common/Maintenance'
 import CarouselFull from './../../components/Carousel/CarouselFull'
-// import Filter from './../../components/Filter/Filter'
+import UserFilter from './../../components/Filter/Filter'
 
 export default {
   components: {
     Maintenance,
-    CarouselFull
-    // Filter
+    CarouselFull,
+    UserFilter
   }
 }
 </script>

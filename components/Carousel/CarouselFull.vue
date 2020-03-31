@@ -24,7 +24,8 @@
 /* eslint-disable vue/require-default-prop */
 import { mapState } from 'vuex'
 
-import { Carousel, Slide } from 'vue-carousel'
+import Carousel from 'vue-carousel/src/Carousel.vue'
+import Slide from 'vue-carousel/src/Slide.vue'
 import CarouselItem from './CarouselItem'
 
 export default {
@@ -38,14 +39,8 @@ export default {
     loop: Boolean,
     navigationEnabled: Boolean,
     perPageCustom: Array,
-    paginationPadding: {
-      type: Number,
-      default: 5
-    },
-    perPage: {
-      type: Number,
-      default: 1
-    }
+    paginationPadding: Number,
+    perPage: Number
   },
   data: () => ({
     navigationNextLabel: '<div class="left-chevron"></div>',
