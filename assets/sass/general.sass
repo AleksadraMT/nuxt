@@ -14,8 +14,20 @@ body
   padding: 0
 
 .container
+  width: 100%
+  margin-right: auto
+  margin-left: auto
   padding-right: 20px
   padding-left: 20px
+  @media (min-width: 576px)
+    max-width: 540px
+
+  @media (min-width: 768px)
+    max-width: 720px
+
+  @media (min-width: 992px)
+    max-width: 960px
+
   @media (min-width: 1200px)
     max-width: 1248px
 
@@ -299,3 +311,50 @@ img[src*="secure.adnxs.com"]
   .custom-select-title
     display: inline-block
     padding-bottom: 10px
+
+.custom-select
+  display: inline-block
+  width: 100%
+  height: calc(1.5em + .75rem + 2px)
+  padding: .375rem 1.75rem .375rem .75rem
+  font-size: 1rem
+  font-weight: 400
+  line-height: 1.5
+  color: #495057
+  vertical-align: middle
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right .75rem center/8px 10px
+  background-color: #fff
+  border: 1px solid #ced4da
+  border-radius: .25rem
+  -webkit-appearance: none
+  -moz-appearance: none
+  appearance: none
+
+.custom-select:focus
+  border-color: #80bdff
+  outline: 0
+  -webkit-box-shadow: 0 0 0 .2rem rgba(0,123,255,.25)
+  box-shadow: 0 0 0 .2rem rgba(0,123,255,.25)
+
+.custom-select:focus::-ms-value
+  color: #495057
+  background-color: #fff
+
+.custom-select[multiple],
+.custom-select[size]:not([size="1"])
+  height: auto
+  padding-right: .75rem
+  background-image: none
+
+.custom-select:disabled
+  color: #6c757d
+  background-color: #e9ecef
+
+.custom-select::-ms-expand
+  display: none
+
+.w-a
+  width: auto
+
+.content-flex-end
+  justify-content: flex-end

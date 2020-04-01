@@ -30,7 +30,7 @@ class ResellerApi {
           'Content-Type': 'application/json',
           Authorization: auth
         },
-        data: {
+        params: {
           financeFormId,
           typeId
         }

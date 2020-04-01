@@ -1,6 +1,6 @@
 <template lang="pug">
     #type-container.filter-uniq-type-container(
-      v-show="allTypes.length > 1"
+      v-show="types.length > 1"
     )
       .container-user
         .row
@@ -9,7 +9,7 @@
               .filter-title-uniq Välj fordonstyp &#8811;
               div
                 .filter-item-uniq
-                  v-drop-down(
+                  DropDown(
                     option-label="name"
                     option-value="id"
                     label=""
@@ -23,15 +23,15 @@
               .filter-title-uniq Välj fordonstyp:
               .uniq-types-list
                 .uniq-types-option(
-                  v-for="(option, key) in allTypes"
-                  :class="{'active': type.includes(option.type.id)}"
+                  v-for="(option, key) in types"
+                  :class="{'active': type.type.id === option.type.id}"
                   :key="key"
                 )
                   label
                     input(
                       type="radio"
                       name="uniq-type"
-                      :value="option.type.id"
+                      :value="option"
                       @change="change(option.type.id)"
                     )
                     span
@@ -47,17 +47,19 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 
+import DropDown from '~/components/Common/DropDown.vue'
+
 export default {
   components: {
-    VDropDown: () => import('@/components/helps/DropDown')
+    DropDown
   },
   data: () => ({
     isMobileWidth: false
   }),
   computed: {
     ...mapState('filters', {
-      types: (state) => state.type,
-      type: (state) => state.type.type.id
+      types: (state) => state.types,
+      type: (state) => state.type
     }),
     typesOptions() {
       return this.types.reduce((arr, next) => {
@@ -78,10 +80,11 @@ export default {
   },
   methods: {
     ...mapMutations('filters', ['setType']),
-    change(id) {
-      console.log(id)
-
-      this.$emit('change', id)
+    change(value) {
+      this.$emit(
+        'change',
+        this.types.find((item) => item.type.id === value)
+      )
     },
     checkMobileWidth() {
       return this.$set(

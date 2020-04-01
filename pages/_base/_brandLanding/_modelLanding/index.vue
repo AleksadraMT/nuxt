@@ -4,6 +4,7 @@
 
 <script>
 export default {
-  name: 'ModelLanding'
+  name: 'ModelLanding',
+  middleware: 'filtersData'
 }
 </script>

@@ -28,6 +28,7 @@ export default {
     Maintenance,
     CarouselFull,
     UserFilter
-  }
+  },
+  middleware: 'filtersData'
 }
 </script>

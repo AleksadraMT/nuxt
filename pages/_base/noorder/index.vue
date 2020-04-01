@@ -6,6 +6,19 @@
       | and try again
 </template>
 
+<script>
+import { mapMutations } from 'vuex'
+
+export default {
+  mounted() {
+    this.setIsHomePage(false)
+  },
+  methods: {
+    ...mapMutations('settings', ['setIsHomePage'])
+  }
+}
+</script>
+
 <style lang="sass">
 .error
   text-align: center

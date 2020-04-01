@@ -94,7 +94,7 @@ export default {
       style: 'reseller/getSiteStyle'
     })
   },
-  created() {
+  mounted() {
     this.setIsHomePage(false)
   },
   methods: {
@@ -111,7 +111,6 @@ export default {
 </script>
 
 <style lang="sass">
-
 .support
   &-center
     margin: 40px 0 0

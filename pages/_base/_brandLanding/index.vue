@@ -4,6 +4,7 @@
 
 <script>
 export default {
-  name: 'BrandLanding'
+  name: 'BrandLanding',
+  middleware: 'filtersData'
 }
 </script>

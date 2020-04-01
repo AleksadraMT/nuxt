@@ -142,10 +142,8 @@ export default {
       }, {})
     }
   },
-  created() {
-    this.setIsHomePage(false)
-  },
   async mounted() {
+    this.setIsHomePage(false)
     await this.getCategoriesIds()
     await this.getSections()
     await this.getArticles()

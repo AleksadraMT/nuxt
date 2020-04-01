@@ -468,7 +468,7 @@ export default {
       style: 'reseller/getSiteStyle'
     })
   },
-  created() {
+  mounted() {
     this.setIsHomePage(false)
   },
   methods: {

@@ -2,11 +2,21 @@
 const message = {
   sv: {
     'private': 'privat',
-    'corporate': 'företag'
+    'corporate': 'företag',
+    'Private leasing': 'Privatleasing',
+		'Private rental': 'Långtidshyra',
+		'Down payment': 'Avbetalning',
+		'Corporate leasing': 'Finansiell leasing',
+		'Corporate rental': 'Företagshyra',
   },
   en: {
     'privat': 'private',
-    'företag': 'corporate'
+    'företag': 'corporate',
+    'Privatleasing': 'Private leasing',
+    'Långtidshyra': 'Private rental',
+    'Avbetalning': 'Down payment',
+    'Finansiell leasing': 'Corporate leasing',
+    'Företagshyra': 'Corporate rental'
   }
 }
 
