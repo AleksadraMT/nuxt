@@ -1,5 +1,15 @@
+import { mapState } from 'vuex'
+
 export default {
+  computed: {
+    ...mapState('filters', ['finance_form_name'])
+  },
   methods: {
+    isRental() {
+      return ['Private rental', 'Corporate rental'].includes(
+        this.finance_form_name
+      )
+    },
     getCollectionName(item, flag) {
       switch (item.toLowerCase()) {
         case 'private':
@@ -42,7 +52,7 @@ export default {
         ]
       }
     },
-    isMobileWidth() {
+    isMobile() {
       let isMobile = false
 
       if (
@@ -59,6 +69,32 @@ export default {
       }
 
       return isMobile
+    },
+    getGearName(key) {
+      switch (key) {
+        case 1:
+          return 'Manuell'
+
+        case 2:
+          return 'Automat'
+      }
+    },
+    getDaysOrWeeks(daysNumber, flag) {
+      const isWeek = daysNumber % 7 === 0
+      const rangeCount = isWeek ? daysNumber / 7 : daysNumber
+      const rangeName = isWeek ? 'vecka' : 'dagar'
+      const rangeFinalName = flag
+        ? flag === 'short'
+          ? rangeName.charAt(0) + '.'
+          : rangeName
+        : ''
+
+      return { number: rangeCount, text: rangeFinalName }
+    },
+    formatPrice(num) {
+      if (!num || num === 0) return num
+
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
     }
   }
 }

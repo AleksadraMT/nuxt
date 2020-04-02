@@ -1,0 +1,121 @@
+.product-card
+  margin-bottom: 30px
+  border-radius: 3px
+  transition: all 0.4s
+  color: #58595b
+  display: block
+  border: 2px solid transparent
+  &:hover
+    color: #414141
+    text-decoration: none
+    .product-card-image:after
+      opacity: 1
+    .btn-hover.invert
+      background-color: #333
+  &-image
+    height: 198px
+    overflow: hidden
+    display: flex
+    justify-content: center
+    border: 1px solid #eaeaea
+    position: relative
+    align-items: flex-end
+    padding: 10px
+
+    @media screen and (max-width: 1199px)
+      height: 165px
+
+    @media screen and (max-width: 767px)
+      height: auto
+
+    & .wrap-image,
+    & .wrap-image div
+      height: 100%
+
+    & .gallery-item
+      display: flex
+      align-items: flex-end
+
+    &.campaign-offset
+      padding-top: 40px
+      @media screen and (max-width: 768px)
+        padding: 50px 0 20px
+
+    &:after
+      content: ''
+      position: absolute
+      width: 100%
+      height: 100%
+      top: 0
+      right: 0
+      background: rgba(0,0,0,.08)
+      transition: opacity .2s
+      opacity: 0
+    @media screen and (max-width: 768px)
+      height: auto
+      padding-bottom: 30px
+  &-info
+    padding: 16px
+    background: #eaeaea
+  &-title
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    margin-bottom: 12px
+    &-name
+      font-size: 1.5rem
+      line-height: 1
+      font-weight: 700
+      text-shadow: 1px 0 0
+      @media screen and (max-width: 768px)
+        min-height: 100%
+    &-delivery-days
+      display: flex
+      align-items: center
+      font-size: 0.85rem
+      padding-top: 5px
+  &-description
+    margin-bottom: 10px
+    line-height: 1.4em
+    min-height: 62px
+    font-size: 0.85rem
+  &-price
+    display: flex
+    height: 40px
+    width: auto
+    &-text
+      flex: 1
+      display: flex
+      align-items: baseline
+      justify-content: flex-start
+      padding: 10px
+      background: #fff
+      .num
+        margin-right: 5px
+        color: #58595b
+        font-size: 1.6rem
+        font-weight: 700
+        line-height: 1
+      .mes
+        color: #959697
+        line-height: 1
+    .btn
+      padding: 8px 20px
+      border-radius: 0
+      text-transform: none
+  &-price-symbol
+    color: #000
+    position: absolute
+    top: 0
+    right: 0
+    z-index: 1
+    overflow: hidden
+    width: 100%
+    background-color: #cccccc
+    padding: 11px 13%
+    text-align: center
+    text-shadow: 1px 0px 0px
+    letter-spacing: 0.7px
+    &-text
+      font-size: 12px
+      

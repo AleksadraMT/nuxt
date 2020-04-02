@@ -1,0 +1,58 @@
+.list
+  padding: 15px 0
+  border-bottom: 1px solid #bbbbbb
+
+  &-load-more
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    cursor: pointer
+
+    .arrow
+      transition: transform .3s
+
+    &:hover
+      .arrow
+        transform: translateY(5px)
+
+  .empty
+    .title
+      font-size: 32px
+    .text
+      font-size: 16px
+
+  .list-item
+    display: inline-block
+    margin-right: 10px
+
+  .list-enter-active,
+  .list-leave-active
+    transition: all 0.5s
+
+  .list-enter,
+  .list-leave-to
+    opacity: 0
+    transform: translateY(30px)
+
+  .list-move
+    transition: transform 1s
+
+.legal
+  &-block
+    background-color: #eaeaea
+    margin-top: 15px
+    padding: 15px 0
+    color: #777
+    line-height: 1.1em
+    p
+      margin: 0
+
+.pre-loader .list-preloader
+  &:after
+    width: 60px
+    height: 60px
+    border-width: 5px
+
+.data-not-loaded
+  font-size: 1.2rem

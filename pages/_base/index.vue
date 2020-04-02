@@ -10,7 +10,7 @@
     UserFilter(
       :showFormsFilter="true"
     )
-    div Cars List
+    List
     div SEO text
     div RECO
     div Brands List
@@ -19,16 +19,18 @@
 </template>
 
 <script>
-import Maintenance from './../../components/Common/Maintenance'
-import CarouselFull from './../../components/Carousel/CarouselFull'
-import UserFilter from './../../components/Filter/Filter'
+import Maintenance from '~/components/Common/Maintenance'
+import CarouselFull from '~/components/Carousel/CarouselFull'
+import UserFilter from '~/components/Filter/Filter'
+import List from '~/components/ProductsList/List.vue'
 
 export default {
   components: {
     Maintenance,
     CarouselFull,
-    UserFilter
+    UserFilter,
+    List
   },
-  middleware: 'filtersData'
+  middleware: 'vehiclesList'
 }
 </script>

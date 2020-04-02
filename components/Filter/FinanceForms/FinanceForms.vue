@@ -16,7 +16,7 @@
           :id="`finance-form-${key}`"
           :checked="item.id === financeFormId"
           :value="item.name"
-          @change="changeFinanceForm(item)"
+          @change="UPDATE_FINANCE_FORM(item)"
         )
         .check
           Check
@@ -44,7 +44,7 @@ export default {
           this.$set(
             this.$data,
             'isFormsVisible',
-            !this.isMobileWidth() && this.financeFormsFiltered.length > 1
+            !this.isMobile() && this.financeFormsFiltered.length > 1
           )
         }
       },
@@ -53,20 +53,10 @@ export default {
   },
   methods: {
     translate,
-    ...mapActions('filters', ['CHANGE_FINANCE_FORM']),
-    changeFinanceForm(form) {
-      this.CHANGE_FINANCE_FORM({ form })
-
-      // TODO we need to set new filters
-      // await this.resetParams()
-
-      // await this.getAllFilterData()
-
-      // await this.getVehicles(false)
-    },
+    ...mapActions('filters', ['UPDATE_FINANCE_FORM']),
     setFormsVisibily() {
       const visibility =
-        !this.isMobileWidth() && this.financeFormsFiltered.length > 1
+        !this.isMobile() && this.financeFormsFiltered.length > 1
 
       this.$set(this.$data, 'isFormsVisible', visibility)
     }

@@ -11,16 +11,16 @@
               option-label="name"
               option-value="id"
               label=""
-              v-model="financeFormId"
+              :value="financeFormId"
               :options="financeFormsFilteredSweden"
               :disabled="false"
               :multiple="false"
-              @click="changeFinanceForm($event)"
+              @click="UPDATE_FINANCE_FORM(financeFormsFiltered.find((item) => item.id === $event))"
             )
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import FinanceFormsMixin from './FinanceFormsMixin'
 import translate from '~/lang/lang.js'
@@ -35,16 +35,9 @@ export default {
   },
   mixins: [Helper, FinanceFormsMixin],
   computed: {
-    financeFormId: {
-      get() {
-        return this.$store.state.filters.finance_form_id
-      },
-      set(value) {
-        const form = this.financeFormsFiltered.find((item) => item.id === value)
-
-        this.CHANGE_FINANCE_FORM({ form })
-      }
-    },
+    ...mapState('filters', {
+      financeFormId: (state) => state.finance_form_id
+    }),
     financeFormsFilteredSweden() {
       const newObj = JSON.parse(JSON.stringify(this.financeFormsFiltered))
 
@@ -62,7 +55,7 @@ export default {
           this.$set(
             this.$data,
             'isFormsVisible',
-            this.isMobileWidth() && this.financeFormsFiltered.length > 1
+            this.isMobile() && this.financeFormsFiltered.length > 1
           )
         }
       },
@@ -71,16 +64,9 @@ export default {
   },
   methods: {
     translate,
-    ...mapActions('filters', ['CHANGE_FINANCE_FORM']),
-    changeFinanceForm() {
-      // TODO we need to set new filters
-      // await this.resetParams()
-      // await this.getAllFilterData()
-      // await this.getVehicles(false)
-    },
+    ...mapActions('filters', ['UPDATE_FINANCE_FORM']),
     setFormsVisibily() {
-      const visibility =
-        this.isMobileWidth() && this.financeFormsFiltered.length > 1
+      const visibility = this.isMobile() && this.financeFormsFiltered.length > 1
 
       this.$set(this.$data, 'isFormsVisible', visibility)
     }

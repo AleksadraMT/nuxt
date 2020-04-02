@@ -4,7 +4,7 @@
     )
       .container-user
         .row
-          .col-md-12(v-if="isMobileWidth")
+          .col-md-12(v-if="isMobile")
             .filter-uniq-type.filter-uniq-type-mobile
               .filter-title-uniq Välj fordonstyp &#8811;
               div
@@ -13,12 +13,13 @@
                     option-label="name"
                     option-value="id"
                     label=""
+                    :vale="type.type.id"
                     :options="typesOptions"
                     :disabled="false"
                     :multiple="false"
-                    @click="change($event)"
+                    @click="UPDATE_TYPE(types.find((item) => item.type.id === $event))"
                   )
-          .col-md-12(v-if="!isMobileWidth")
+          .col-md-12(v-if="!isMobile")
             .filter-uniq-type.filter-uniq-type-desktop
               .filter-title-uniq Välj fordonstyp:
               .uniq-types-list
@@ -32,7 +33,7 @@
                       type="radio"
                       name="uniq-type"
                       :value="option"
-                      @change="change(option.type.id)"
+                      @change="UPDATE_TYPE(types.find((item) => item.type.id === option.type.id))"
                     )
                     span
                       img(
@@ -45,7 +46,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import DropDown from '~/components/Common/DropDown.vue'
 
@@ -54,7 +55,7 @@ export default {
     DropDown
   },
   data: () => ({
-    isMobileWidth: false
+    isMobile: false
   }),
   computed: {
     ...mapState('filters', {
@@ -72,24 +73,18 @@ export default {
   mounted() {
     const _this = this
 
-    this.isMobileWidth = window.matchMedia('(max-width: 480px)').matches
+    this.isMobile = window.matchMedia('(max-width: 480px)').matches
 
     window.addEventListener('resize', function() {
       _this.checkMobileWidth()
     })
   },
   methods: {
-    ...mapMutations('filters', ['setType']),
-    change(value) {
-      this.$emit(
-        'change',
-        this.types.find((item) => item.type.id === value)
-      )
-    },
+    ...mapActions('filters', ['UPDATE_TYPE']),
     checkMobileWidth() {
       return this.$set(
         this.$data,
-        'isMobileWidth',
+        'isMobile',
         window.matchMedia('(max-width: 480px)').matches
       )
     }

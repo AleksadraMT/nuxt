@@ -1,5 +1,7 @@
 import FilterApi from '~/api/filter'
 
+export const strict = false
+
 export const state = () => ({
   finance_form_id: null,
   finance_form_name: '',
@@ -34,7 +36,8 @@ export const state = () => ({
     }
   ],
   selectedFilters: {},
-  filters: []
+  filters: [],
+  filterShow: true
 })
 
 export const getters = {
@@ -53,6 +56,7 @@ export const mutations = {
   setSelectedTypeOfSort: (state, selectedTypeOfSort) =>
     (state.selectedTypeOfSort = selectedTypeOfSort),
   setFilters: (state, values) => (state.filters = values),
+  removeFilters: (state) => (state.filters = []),
   setSelectedFilters: (state, selectedFilter) => {
     if (!state.selectedFilters[selectedFilter.name])
       state.selectedFilters[selectedFilter.name] = []
@@ -63,7 +67,9 @@ export const mutations = {
     ]
 
     state.selectedFilters[selectedFilter.name] = [...new Set(newArray)]
-  }
+  },
+  removeSelectedFilters: (state) => (state.selectedFilters = {}),
+  setFilterShow: (state, value) => (state.filterShow = value)
 }
 
 export const actions = {
@@ -112,13 +118,7 @@ export const actions = {
     commit('setFinanceFormId', defaultForm.id)
     commit('setFinanceFormName', defaultForm.name)
   },
-  CHANGE_FINANCE_FORM({ commit, dispatch }, { form }) {
-    commit('setFinanceFormId', form.id)
-    commit('setFinanceFormName', form.name)
-
-    dispatch('reseller/FETCH_STYLE', null, { root: true })
-  },
-  async FETCH_FILTERS({ commit, state, rootState }) {
+  async FETCH_FILTERS({ commit, state, rootState }, data) {
     const response = await FilterApi.getAll({
       selectedFilters: state.selectedFilters,
       resellerId: state.type.id,
@@ -126,6 +126,51 @@ export const actions = {
       financeFormId: state.finance_form_id
     })
 
-    commit('setFilters', response.data)
+    const fixedField = data && data.name ? data.name : null
+    const filteredData = response.data.filters.data.filter(
+      (item) => item.key !== fixedField
+    )
+    let getFixedData
+
+    if (fixedField !== null) {
+      getFixedData = state.filters.find((item) => item.key === fixedField)
+
+      const newData = response.data.filters.data.map((item) => {
+        if (item.key === fixedField) {
+          item.items = getFixedData.items
+
+          return item
+        }
+
+        return item
+      })
+
+      commit('setFilters', newData)
+    } else {
+      commit('setFilters', filteredData)
+    }
+  },
+  SET({ commit }, { mutation, value }) {
+    commit(mutation, value)
+  },
+  UPDATE_FILTERS({ dispatch, commit }, data) {
+    commit('setSelectedFilters', data)
+    dispatch('FETCH_FILTERS', data)
+  },
+  UPDATE_TYPE({ commit, dispatch }, typeData) {
+    commit('setType', typeData)
+    commit('removeFilters')
+    commit('removeSelectedFilters')
+    dispatch('FETCH_FILTERS')
+  },
+  UPDATE_FINANCE_FORM({ commit, dispatch }, form) {
+    commit('setFinanceFormId', form.id)
+    commit('setFinanceFormName', form.name)
+
+    dispatch('reseller/FETCH_STYLE', null, { root: true })
+
+    commit('removeFilters')
+    commit('removeSelectedFilters')
+    dispatch('FETCH_FILTERS')
   }
 }
