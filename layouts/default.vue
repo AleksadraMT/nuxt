@@ -20,7 +20,7 @@ export default {
   },
   mixins: [Helper],
   computed: {
-    ...mapState('reseller', ['metaDescription']),
+    ...mapState('reseller', ['metaDescription', 'resellerInfo']),
     ...mapGetters({
       style: 'reseller/getSiteStyle'
     })
@@ -32,7 +32,8 @@ export default {
     return this.metaData({
       title: this.style.logoFont.title,
       logo: this.style.logoFont.favicon,
-      description: this.metaDescription
+      description: this.metaDescription,
+      url: this.resellerInfo.url
     })
   },
   middleware: 'auth'

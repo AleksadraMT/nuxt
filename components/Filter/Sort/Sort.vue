@@ -18,11 +18,8 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: 'VHeaderSort',
   computed: {
-    ...mapState('reseller', {
-      hasDeliveryTime: (state) =>
-        state.resellerInfo.settings
-          ? state.resellerInfo.settings.deliveryTime
-          : true
+    ...mapState('settings', {
+      hasDeliveryTime: (state) => state.deliveryTime
     }),
     ...mapState('filters', ['sortOptions']),
     selectedTypeOfSort: {

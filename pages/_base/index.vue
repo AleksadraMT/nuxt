@@ -11,11 +11,16 @@
       :showFormsFilter="true"
     )
     List
-    div SEO text
-    div RECO
-    div Brands List
-    div Zendesk FAQ
-    div SEO big block
+    .container
+      Reco
+    .home-brandlist.in-stream
+      .container
+        BrandsList(
+          :visibility="true"
+        )
+    .container    
+      FaqList
+    Seo
 </template>
 
 <script>
@@ -23,14 +28,31 @@ import Maintenance from '~/components/Common/Maintenance'
 import CarouselFull from '~/components/Carousel/CarouselFull'
 import UserFilter from '~/components/Filter/Filter'
 import List from '~/components/ProductsList/List.vue'
+import Reco from '~/components/Reco/Reco.vue'
+import BrandsList from '~/components/Lists/BrandsList.vue'
+import FaqList from '~/components/FaqBlock/FaqList.vue'
+import Seo from '~/components/Seo/Seo.vue'
 
 export default {
   components: {
     Maintenance,
     CarouselFull,
     UserFilter,
-    List
+    List,
+    Reco,
+    BrandsList,
+    FaqList,
+    Seo
   },
   middleware: 'vehiclesList'
 }
 </script>
+
+<style lang="sass">
+.home-brandlist
+  background: #F2F2F2
+  margin-top: 100px
+  padding: 60px 0 50px
+  .brands
+    background: transparent
+</style>

@@ -41,7 +41,7 @@ class ProductApi {
 
     try {
       return await axios({
-        method: 'POST',
+        method: 'GET',
         url: process.env.BASE_URL + `vehicles/${id}`,
         headers: {
           Accept: 'application/json',
@@ -49,7 +49,7 @@ class ProductApi {
           'Content-Type': 'application/json',
           Authorization: auth
         },
-        data: {
+        params: {
           financeFormId,
           typeId
         }

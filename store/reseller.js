@@ -50,10 +50,11 @@ export const getters = {
 }
 
 export const actions = {
-  async FETCH_AUTH({ commit }) {
+  async FETCH_AUTH({ commit, dispatch }) {
     const response = await ResellerApi.get()
 
     commit('setResellerInfo', response.data)
+    dispatch('settings/SET_ALL', null, { root: true })
     commit('setToken', `Bearer ${response.data.token}`)
   },
   async FETCH_STYLE({ commit, state, rootState }) {

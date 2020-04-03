@@ -20,7 +20,7 @@
 
       transition(name="slide")
         CategoriesList
-    HeaderBottom
+    HeaderBottom(v-if="isBase")
 </template>
 
 <style lang="sass">
@@ -36,8 +36,8 @@ import Logo from '~/components/Header/Logo.vue'
 import CollectionsSwitcher from '~/components/Header/CollectionsSwitcher.vue'
 import Navigation from '~/components/Header/Navigation.vue'
 import SubNavigation from '~/components/Header/SubNavigation.vue'
-import BrandsList from '~/components/Header/Lists/BrandsList.vue'
-import CategoriesList from '~/components/Header/Lists/CategoriesList.vue'
+import BrandsList from '~/components/Lists/BrandsList.vue'
+import CategoriesList from '~/components/Lists/CategoriesList.vue'
 import HeaderBottom from '~/components/Header/HeaderBottom.vue'
 
 export default {
@@ -51,11 +51,16 @@ export default {
     CategoriesList,
     HeaderBottom
   },
+  data: () => ({
+    isBase: false
+  }),
   computed: {
     ...mapState('settings', ['isHomePage'])
   },
   mounted() {
     const _this = this
+
+    this.isBase = this.$route.name === 'base'
 
     document.addEventListener('click', function(e) {
       if (

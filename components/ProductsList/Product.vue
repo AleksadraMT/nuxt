@@ -1,6 +1,6 @@
 <template lang="pug">
   nuxt-link.product-card(
-    :to="{ name: 'base-product', params: {base: $route.params.base, type: replaceSpaces(vehicle.type), brand: replaceSpaces(vehicle.brand), model: replaceSpaces(vehicle.model), name: replaceSpaces(vehicle.name),} , query: {id: vehicle.id, financeform: replaceSpaces(finance_form_name), } }"
+    :to="{ name: 'base-product-type-brand-model-name', params: {base: $route.params.base, type: replaceSpaces(vehicle.type), brand: replaceSpaces(vehicle.brand), model: replaceSpaces(vehicle.model), name: replaceSpaces(vehicle.name),} , query: {id: vehicle.id, financeform: replaceSpaces(finance_form_name), } }"
   )
     .product-card-image(:class="{'campaign-offset': isCampaign }")
       ImageBuilder.image(:image-source="image")
@@ -46,18 +46,14 @@ export default {
   computed: {
     ...mapState('reseller', {
       resellerInfo: (state) => state.resellerInfo,
-      hasDeliveryTime: (state) =>
-        state.resellerInfo.settings
-          ? state.resellerInfo.settings.deliveryTime
-          : true,
       chooseBtnText: (state) =>
         state.siteStyle.listItem
           ? state.siteStyle.listItem.choose_btn_text
-          : 'Beställ',
-      minDaysFromOrder: (state) =>
-        state.resellerInfo.settings
-          ? state.resellerInfo.settings.calendar.min_days_from_order
-          : 0
+          : 'Beställ'
+    }),
+    ...mapState('settings', {
+      hasDeliveryTime: (state) => state.deliveryTime,
+      minDaysFromOrder: (state) => state.calendar.min_days_from_order || 0
     }),
     ...mapState('filters', ['finance_form_name']),
     image() {

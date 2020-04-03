@@ -1,0 +1,140 @@
+.seo
+  &-block
+    background-color: #ECF2F1
+    padding: 60px 0
+    font-size: 20px
+
+    @media screen and (max-width: 1200px)
+      font-size: 16px
+
+  &-visible
+    position: relative
+
+  &-title
+    font-weight: light
+    font-size: 42px
+    line-height: 55px
+    letter-spacing: 0
+    color: #464545
+
+  &-tagbomg
+    background: url('~@/assets/img/tagbomb.png')
+    width: 118px
+    height: 118px
+    background-size: contain
+    position: absolute
+    top: -100px
+    right: 0
+    @media screen and (max-width: 769px)
+      width: 70px
+      height: 70px
+      top: -80px
+
+  &-description
+    padding-top: 20px
+    line-height: 29px
+
+  &-options-list
+    padding-top: 50px
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-wrap: wrap
+
+    @media screen and (max-width: 479px)
+      display: block
+
+    div
+      padding: 10px 30px 10px 0
+      display: flex
+      align-items: center
+      text-align: left
+      @media screen and (max-width: 479px)
+        padding: 10px 0
+
+      &:last-child
+        padding-right: 0 
+
+    span
+      padding-left: 10px
+      line-height: 1
+      text-shadow: 1px 0 0
+
+    svg
+      width: 30px
+      height: 30px
+
+  &-show-more
+    padding-top: 65px
+
+  &-show-more-text
+    padding-top: 20px
+    text-align: center
+    width: 100%
+
+  &-arrow
+    display: flex
+    justify-content: center
+    width: 24px
+    margin: auto
+    &.show
+      transform: rotate(180deg)
+    &:hover
+      .seo-line
+        top: 5px
+
+  &-line-block
+    position: relative
+    cursor: pointer
+    width: 15px
+    height: 15px
+
+  &-line
+    width: 2px
+    height: 100%
+    background-color: #707070
+    position: relative
+    top: 0
+    transition: top .2s
+
+    &-left
+      transform: rotate(-45deg)
+      right: -6px
+
+    &-right
+      transform: rotate(45deg)
+      right: -4px
+
+  &-unvisible
+    padding-top: 0
+    display: none
+    &.visible
+      padding-top: 120px
+      display: block
+
+  &-text
+    &-title
+      text-shadow: 1px 0 0
+    
+    &-title-big
+      text-align: center
+      padding: 80px 0 60px
+      font-size: 42px
+      text-shadow: none
+      @media screen and (max-width: 768px)
+        font-size: 21px
+        padding: 50px 0 15px
+    
+    &-description
+      padding-top: 40px
+      column-count: 2
+      column-gap: 60px
+
+      @media screen and (max-width: 768px)
+        column-count: 1
+        column-gap: 0
+
+      @media screen and (min-width: 769px)
+        &-break
+          break-after: always
+

@@ -8,14 +8,14 @@
 <script>
 import { mapMutations } from 'vuex'
 
-import BrandsList from '~/components/Header/Lists/BrandsList.vue'
+import BrandsList from '~/components/Lists/BrandsList.vue'
 
 export default {
   name: 'Bilmarken',
   components: {
     BrandsList
   },
-  created() {
+  mounted() {
     this.setIsHomePage(false)
   },
   methods: {

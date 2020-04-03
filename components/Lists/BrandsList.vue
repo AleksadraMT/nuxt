@@ -1,5 +1,5 @@
 <template lang="pug">
-  #brands.brands(v-show="brandListVisible")
+  #brands.brands(v-show="brandListVisible || visibility")
     .brands-outer
       div
         h2.subpage-heading Våra varumärken
@@ -21,6 +21,12 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'BrandsList',
+  props: {
+    visibility: {
+      type: Boolean,
+      default: false
+    }
+  },
   computed: {
     ...mapState('settings', ['brandListVisible']),
     ...mapState('landing', ['allLandings'])
@@ -28,8 +34,6 @@ export default {
   methods: {
     getBrandParam(obj) {
       const brand = obj.brand.name
-
-      // console.log(this.$route.params)
 
       return brand.toLocaleLowerCase().replace(/ /g, '-')
     }
