@@ -27,4 +27,5 @@ export default async function({ route, redirect, store, commit }) {
   }
 
   await store.dispatch('product/FETCH_VEHICLE', route.query)
+  await store.dispatch('product/FETCH_CALC_DEPENDENCIES')
 }

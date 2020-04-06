@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import axios from 'axios'
 
 class ProductApi {
@@ -53,6 +54,31 @@ class ProductApi {
           financeFormId,
           typeId
         }
+      })
+    } catch (err) {
+      throw new Error(err)
+    }
+  }
+
+  async calculateDependencies(data) {
+    const { id, auth, residual, cash_payment } = data
+
+    const params = {}
+
+    if (residual) params.residual = residual
+    if (cash_payment) params.cash_payment = cash_payment
+
+    try {
+      return await axios({
+        method: 'GET',
+        url: process.env.BASE_URL + `costs/${id}/calculate-dependencies`,
+        headers: {
+          Accept: 'application/json',
+          'X-Partner-Key': process.env.NUXT_ENV_PARTNER_KEY,
+          'Content-Type': 'application/json',
+          Authorization: auth
+        },
+        params
       })
     } catch (err) {
       throw new Error(err)

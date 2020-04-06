@@ -34,7 +34,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/style-plugin.client.js' }],
+  plugins: [
+    { src: '~/plugins/style-plugin.client.js' },
+    { src: '~/plugins/lightgallery.client.js', ssr: false }
+  ],
   /*
    ** Nuxt.js dev-modules
    */

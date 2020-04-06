@@ -1,26 +1,28 @@
 <template lang="pug">
-  div ProductPage
+  .product
+    div
+      Steps
 </template>
 
 <script>
 import { mapMutations, mapGetters, mapState } from 'vuex'
+
+import Steps from '~/components/Product/Steps/Steps.vue'
+
 import Helper from '~/mixins/Helper'
 
 export default {
   name: 'ProductPage',
-  mixins: [Helper],
-  props: {
-    isConfirmed: {
-      type: Boolean,
-      default: false
-    }
+  components: {
+    Steps
   },
+  mixins: [Helper],
   computed: {
     ...mapGetters({
       style: 'reseller/getSiteStyle'
     }),
     ...mapState('product', {
-      metaData: (state) => state.vehicleMeta
+      vehicleMeta: (state) => state.vehicleMeta
     })
   },
   mounted() {
@@ -31,11 +33,11 @@ export default {
   },
   head() {
     return this.metaData({
-      title: this.metaData.title,
+      title: this.vehicleMeta.title,
       logo: this.style.logoFont.favicon,
-      description: this.metaData.description,
-      keywords: this.metaData.keywords,
-      url: this.metaData.url
+      description: this.vehicleMeta.description,
+      keywords: this.vehicleMeta.keywords,
+      url: this.vehicleMeta.url
     })
   },
   middleware: 'vehicle'

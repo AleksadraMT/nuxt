@@ -1,0 +1,22 @@
+.main-img
+  img
+    max-height: 270px
+    width: auto
+.img-row
+  overflow: hidden
+  display: flex
+  .gallery-item
+    cursor: pointer
+    width: 30px
+    height: 30px
+    overflow: hidden
+  &-item
+    margin: 0 2px
+    img
+      max-width: none
+      height: 100%
+    &:first-child
+      margin-left: auto
+    &:last-child
+      margin-right: auto
+  
