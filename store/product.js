@@ -33,7 +33,8 @@ export const state = () => ({
   sortedCosts: {},
   deliveryType: 'delivery_type_stardard',
   modelColor: {},
-  defaults: {}
+  defaults: {},
+  residualVisibility: true
 })
 
 export const getters = {
@@ -138,7 +139,9 @@ export const mutations = {
   setCurrentStepIndex: (state, index) => (state.currentStepIndex = index),
   setRedirectUrl: (state, url) => (state.redirectUrl = url),
   setSortedCosts: (state, sortedCosts) => (state.sortedCosts = sortedCosts),
-  setModelColor: (state, modelColor) => (state.modelColor = modelColor)
+  setModelColor: (state, modelColor) => (state.modelColor = modelColor),
+  setResidualVisibility: (state, visibility) =>
+    (state.residualVisibility = visibility)
 }
 
 export const actions = {
@@ -201,6 +204,12 @@ export const actions = {
       modelColorsArr.data.find((item) => item.default) || modelColorsArr.data
 
     commit('setModelColor', modelColor)
+
+    dispatch(
+      'order/SET',
+      { mutation: 'setModelColorId', value: modelColor.id },
+      { root: true }
+    )
 
     dispatch(
       'order/SET',

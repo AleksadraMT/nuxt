@@ -97,6 +97,11 @@ export default {
 
       return { number: rangeCount, text: rangeFinalName }
     },
+    getDays(days, flag) {
+      const daysParam = this.getDaysOrWeeks(days, flag)
+
+      return `${daysParam.number} ${daysParam.text}`
+    },
     formatPrice(num) {
       if (!num || num === 0) return num
 

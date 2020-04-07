@@ -36,7 +36,8 @@ export default {
    */
   plugins: [
     { src: '~/plugins/style-plugin.client.js' },
-    { src: '~/plugins/lightgallery.client.js', ssr: false }
+    { src: '~/plugins/lightgallery.client.js', ssr: false },
+    { src: '~/plugins/vee-validate.js' }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -65,6 +66,7 @@ export default {
    ** Build configuration
    */
   build: {
+    transpile: ['vee-validate/dist/rules'],
     /*
      ** You can extend webpack config here
      */
