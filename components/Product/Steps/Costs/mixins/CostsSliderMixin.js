@@ -1,7 +1,7 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
-import VueSlider from 'vue-slider-component'
-import 'vue-slider-component/theme/default.css'
+import VueSlider from 'vue-slider-component/dist-css/vue-slider-component.umd.min.js'
+import 'vue-slider-component/dist-css/vue-slider-component.css'
 
 const formatPrice = (num) => {
   if (!num || num === 0) return num
@@ -32,6 +32,7 @@ export default {
   },
   computed: {
     ...mapState('product', ['vehicle', 'modelColor', 'residualVisibility']),
+    ...mapState('filters', ['finance_form_name']),
     ...mapGetters('product', ['getDefaults', 'isVatIncluded']),
     minResidual() {
       return this.isHasPriceData('min_residual')
@@ -59,9 +60,10 @@ export default {
     },
     residual: {
       get() {
-        if (isFormsWithResidual(this.getPriceForm) && this.isHasDefault) {
+        if (isFormsWithResidual(this.finance_form_name) && this.isHasDefault) {
           const storeResidual = this.$store.state.order.residual
-          const defaultsResidual = this.getDefaults[this.getPriceForm].residual
+          const defaultsResidual = this.getDefaults[this.finance_form_name]
+            .residual
           const vehicleResidual =
             this.isHasDefault && defaultsResidual === null
               ? this.isHasPriceData('default_residual')
@@ -135,7 +137,7 @@ export default {
     ...mapActions('product', ['updateDefaults']),
     sliderChange() {
       this.updateDefaults({
-        form: this.getPriceForm,
+        form: this.finance_form_name,
         residual: this.residual,
         id: this.vehicleCostId
       })
@@ -153,12 +155,14 @@ export default {
       if (!(this.vehicle.prices && this.vehicle.prices.data.length)) return
 
       const pricesObj = this.vehicle.prices.data.find(
-        (item) => item.finance_form === this.getPriceForm
+        (item) => item.finance_form === this.finance_form_name
       )
 
       return pricesObj ? pricesObj[key] : 0
     },
     getTooltipsAndSetPosition() {
+      if (!process.client) return
+
       const slidersTooltips = document.querySelectorAll(
         '.vue-slider-dot-tooltip'
       )

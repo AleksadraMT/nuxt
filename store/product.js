@@ -47,7 +47,7 @@ export const getters = {
   getVehicle: (state) => state.vehicle,
   getCurrentStep: (state) => state.steps[state.currentStepIndex] || false,
   getSortedCosts: (state) => state.sortedCosts,
-  calculatePrice: (state, rootState) => {
+  calculatePrice: (state, getters, rootState) => {
     let price = 0
 
     if (state.vehicle.costs) {
@@ -82,7 +82,7 @@ export const getters = {
 
     return 0
   },
-  isVatIncluded: (state, rootState) => {
+  isVatIncluded: (state, getters, rootState) => {
     if (
       state.vehicle.costs &&
       Object.keys(state.defaults).length &&
@@ -123,6 +123,17 @@ export const getters = {
         : 0
 
     return days
+  },
+  getDefaults: (state) => state.defaults,
+  getFixedCostByMonthAndDistance: (state) => ([month, distance]) => {
+    if (state.vehicle.costs)
+      return (
+        state.vehicle.costs.data.find(
+          (item) => item.months === month && item.distance === distance
+        ) || {}
+      )
+
+    return {}
   }
 }
 
@@ -141,7 +152,8 @@ export const mutations = {
   setSortedCosts: (state, sortedCosts) => (state.sortedCosts = sortedCosts),
   setModelColor: (state, modelColor) => (state.modelColor = modelColor),
   setResidualVisibility: (state, visibility) =>
-    (state.residualVisibility = visibility)
+    (state.residualVisibility = visibility),
+  setDefaults: (state, defaults) => (state.defaults = defaults)
 }
 
 export const actions = {
@@ -218,6 +230,7 @@ export const actions = {
     )
 
     commit('setVehicle', vehicle)
+    dispatch('NEW_DEFAULTS')
   },
   async FETCH_CALC_DEPENDENCIES({ commit, dispatch, rootState, state }) {
     const response = await ProductApi.calculateDependencies({
@@ -258,5 +271,75 @@ export const actions = {
   },
   updateSortedCosts({ commit }, data) {
     commit('setSortedCosts', data)
+  },
+  NEW_DEFAULTS({ commit, state, rootState }) {
+    commit('setDefaults', {})
+
+    const defaults = state.vehicle.costs.data.reduce((obj, item) => {
+      if (!obj.hasOwnProperty(item.finance_form))
+        obj[item.finance_form] = {
+          months: item.months,
+          distance: item.distance,
+          price: getPrice(item),
+          residual: item.residual,
+          id: item.id
+        }
+
+      const { months, distance, price, residual, id } = obj[item.finance_form]
+
+      const generalPrice = getPrice(item)
+
+      const check =
+        generalPrice < price ||
+        (generalPrice === price && item.months < months) ||
+        (generalPrice === price &&
+          item.months === months &&
+          item.distance < distance)
+
+      obj[item.finance_form].months = check ? item.months : months
+
+      obj[item.finance_form].distance = check ? item.distance : distance
+
+      obj[item.finance_form].price = check ? generalPrice : price
+
+      obj[item.finance_form].residual = check ? item.residual : residual
+
+      obj[item.finance_form].id = check ? item.id : id
+
+      return obj
+    }, {})
+
+    commit('setDefaults', defaults)
+  },
+  updateDefaults({ commit, state }, data) {
+    const { form, months, distance, price, residual, id } = data
+
+    const copyDefaults = JSON.parse(JSON.stringify(state.defaults))
+
+    if (months) copyDefaults[form].months = months
+
+    if (distance) copyDefaults[form].distance = distance
+
+    if (price) copyDefaults[form].price = price
+
+    if (residual) copyDefaults[form].residual = residual
+
+    if (id) copyDefaults[form].id = id
+
+    commit('setDefaults', copyDefaults)
   }
+}
+
+const getPrice = (costs, standardPrice) => {
+  let extraPrice = 0
+  const serviceCost = costs.service_cost !== null ? costs.service_cost : 0
+  const basicPrice = standardPrice || costs.calculated_price
+
+  if (costs.extraFields.data.length) {
+    extraPrice = costs.extraFields.data.reduce((sum, item) => {
+      return sum + item.price
+    }, 0)
+  }
+
+  return basicPrice + serviceCost + extraPrice
 }

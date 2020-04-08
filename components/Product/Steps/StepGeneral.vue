@@ -33,7 +33,7 @@
 
             .step-subtitle.m-t-20 Välj finanslösning
             .step-subtitle-container
-              //- Costs
+              Costs
 
             div(v-if="homeDelivery && vehicle.home_delivery")
             .step-subtitle.m-t-20 
@@ -47,13 +47,15 @@ import Gallery from '~/components/Common/Galery.vue'
 
 import ModelColor from '~/components/Product/Steps/Common/ModelColor.vue'
 import VehicleDescription from '~/components/Product/Steps/Common/VehicleDescription.vue'
+import Costs from '~/components/Product/Steps/Costs/Costs.vue'
 
 export default {
   name: 'StepGeneral',
   components: {
     Gallery,
     ModelColor,
-    VehicleDescription
+    VehicleDescription,
+    Costs
   },
   computed: {
     ...mapState('product', ['modelColor', 'vehicle']),

@@ -17,11 +17,11 @@
           .costs-list-subtitle.m-t-20
             strong Totalpris {{ !isVatIncluded ? '(ex. moms)' : '' }}
           .m-t-15.big 
-           | {{ formatPrice(totalPrice) }} kr
+           | {{ totalPrice }} kr
         div
           .costs-list-subtitle.m-t-20
             strong Finansierat belopp
-          .m-t-15.big {{ formatPrice(totalPrice - calculatedCashPaymentPrice) }} kr
+          .m-t-15.big {{ totalPrice - calculatedCashPaymentPrice }} kr
         div
           .costs-list-subtitle.m-t-20
             strong Ränta
@@ -44,7 +44,7 @@
             @drag-end="sliderChange($event)"
           )
             <template #tooltip="{ index }">
-              <div><strong>{{formatPrice(calculatedResidualPrice)}} <span class="tooltip-text-small">kr</span> ({{ residual }}%)</strong></div>
+              <div><strong>{{calculatedResidualPrice}} <span class="tooltip-text-small">kr</span> ({{ residual }}%)</strong></div>
             </template>
 
       .costs-list-subtitle.m-t-20 
@@ -64,7 +64,7 @@
             @drag-end="sliderChange($event)"
           )
             <template #tooltip="{ index }">
-              <div><strong>{{formatPrice(calculatedCashPaymentPrice)}} <span class="tooltip-text-small">kr</span> ({{ cashPayment }}%)</strong></div>
+              <div><strong>{{calculatedCashPaymentPrice}} <span class="tooltip-text-small">kr</span> ({{ cashPayment }}%)</strong></div>
             </template>
 
       MonthChoiser(
@@ -76,11 +76,11 @@
 <script>
 import CostsMixin from '~/components/Product/Steps/Costs/mixins/CostsMixin.js'
 import CostsSliderMixin from '~/components/Product/Steps/Costs/mixins/CostsSliderMixin.js'
+import MonthChoiser from '~/components/Product/Steps/Costs/costs-parts/month.vue'
 
 export default {
   components: {
-    MonthChoiser: () =>
-      import('~/components/Product/Steps/Costs/costs-parts/month.vue')
+    MonthChoiser
   },
   mixins: [CostsMixin, CostsSliderMixin],
   computed: {

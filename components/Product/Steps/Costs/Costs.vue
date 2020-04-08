@@ -4,7 +4,7 @@
       div.costs-list(
         v-for="(item, key, index) in getSortedCosts"
         :key="item.id"
-        :class="{'active': key === getPriceForm }"
+        :class="{'active': key === finance_form_name }"
         :data-tab-name="key"
       )
         component(
@@ -38,18 +38,18 @@ export default {
           : []
     }),
     ...mapState('order', ['residual', 'cash_payment', 'vehicleCostId']),
+    ...mapState('filters', ['finance_form_name']),
     ...mapGetters('product', [
       'getDefaults',
-      'getPriceForm',
-      'fixedCostByDistanceAndMonth'
+      'fixedCostByDistanceAndMonth',
+      'getSortedCosts'
     ]),
-    ...mapGetters('reseller', ['getFinanceFormName', 'getFinanceFormIdByName']),
-    ...mapGetters('steps', ['getSortedCosts'])
+    ...mapGetters('reseller', ['getFinanceFormName', 'getFinanceFormIdByName'])
   },
   watch: {
     vehicle() {
-      if (!this.getPriceForm) {
-        this.updatePriceForm(this.getFinanceFormName)
+      if (!this.finance_form_name) {
+        this.setFinanceFormName(this.getFinanceFormName)
       }
 
       if (typeof this.isHasPriceData('allow_residual') === 'boolean')
@@ -59,22 +59,17 @@ export default {
     }
   },
   created() {
-    if (!this.getPriceForm) this.updatePriceForm(this.getFinanceFormName)
+    if (!this.finance_form_name)
+      this.setFinanceFormName(this.getFinanceFormName)
 
     this.getCostsObj()
   },
   methods: {
-    ...mapActions('steps', ['updateSortedCosts']),
-    ...mapActions('product', ['updatePriceForm']),
-    ...mapActions('reseller', [
-      'updateBuilder',
-      'updateFinanceFormId',
-      'updateFinanceFormName'
-    ]),
-    ...mapMutations('product', [
-      'setSelectedAccessories',
-      'setResidualVisibility'
-    ]),
+    ...mapActions('product', ['updateSortedCosts']),
+    ...mapActions('reseller', ['FETCH_STYLE']),
+    ...mapMutations('product', ['setResidualVisibility']),
+    ...mapMutations('filters', ['setFinanceFormName', 'setFinanceFormId']),
+    ...mapActions('order', ['SET']),
     getCostsObj() {
       const availableForms = this.financeForms.length
         ? this.financeForms.reduce((arr, next) => arr.concat(next.name), [])
@@ -97,15 +92,17 @@ export default {
         this.updateSortedCosts(sortedCosts)
       }
     },
-    setActive(tabName) {
-      this.updatePriceForm(tabName)
-      this.setSelectedAccessories([])
+    async setActive(tabName) {
+      this.setFinanceFormName(tabName)
+      this.SET({ mutation: 'setAccessories', value: [] })
 
       const financeFormId = this.financeForms.find(
         (item) => item.name === tabName
       ).id
 
-      this.updateBuilder(financeFormId)
+      this.setFinanceFormId(financeFormId)
+
+      await this.FETCH_STYLE()
 
       if (typeof this.isHasPriceData('allow_residual') === 'boolean')
         this.setResidualVisibility(this.isHasPriceData('allow_residual'))
@@ -119,7 +116,7 @@ export default {
       if (!(this.vehicle.prices && this.vehicle.prices.data.length)) return
 
       const pricesObj = this.vehicle.prices.data.find(
-        (item) => item.finance_form === this.getPriceForm
+        (item) => item.finance_form === this.finance_form_name
       )
 
       return pricesObj ? pricesObj[key] : 0
@@ -146,12 +143,12 @@ export default {
       if (!Object.keys(this.getDefaults).length) return false
 
       const cost = this.vehicle.costs.data
-        .filter((item) => item.finance_form === this.getPriceForm)
+        .filter((item) => item.finance_form === this.finance_form_name)
         .filter(
           (item) =>
-            item.finance_form === this.getPriceForm &&
-            item.months === this.getDefaults[this.getPriceForm].months &&
-            item.distance === this.getDefaults[this.getPriceForm].distance
+            item.finance_form === this.finance_form_name &&
+            item.months === this.getDefaults[this.finance_form_name].months &&
+            item.distance === this.getDefaults[this.finance_form_name].distance
         )
         .sort((a, b) => b.months - a.months)
         .reduce((accum, value) =>
@@ -160,35 +157,10 @@ export default {
 
       return cost.id
     }
-  },
-  updated() {
-    const id = this.getVehicleId()
-
-    if (!(this.sendCosts && id)) return
-
-    let data
-
-    if (['Down payment', 'Corporate leasing'].includes(this.getPriceForm)) {
-      data = {
-        residual: this.getResidual(),
-        cash_payment: this.getCashPayment(),
-        vehicleCostId: id,
-        forceUpdate: true
-      }
-    } else {
-      data = { vehicleCostId: id }
-    }
-
-    this.$store.dispatch('order/saveAllFields', { vehicleCostId: id })
-    this.$store.commit('order/setVehicleCostId', id)
-
-    this.$store.dispatch('product/updateVehicle', data).then(() => {
-      this.sendCosts = false
-    })
   }
 }
 </script>
 
 <style lang="sass">
-@import '@/style/components/Costs.sass'
+@import '~/assets/sass/components/Common/Costs.sass'
 </style>

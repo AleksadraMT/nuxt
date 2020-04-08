@@ -1,14 +1,12 @@
 <template lang="pug">
   div
     .costs-list-subtitle.m-t-20 
-        strong {{ customStyle.period_title }}:
+        strong {{ siteStyle.period_title }}:
     .preloader-behind
       .preloader-behind-row.row.m-t-15
         .col-md-4.col-6(v-for="(fixedCost, index) in fixedCostsBy" :key="index")
           input.radio-block-input(
             type="radio"
-            data-vv-name="month"
-            v-validate="'required'"
             :checked="month === fixedCost.months"
             :id="`month${index}`"
             :value="fixedCost.months"
@@ -20,8 +18,6 @@
               .radio-block-info(v-if="index === 0") Standard
               .radio-block-info.red-text(v-else)
                 | + {{fixedCost.general_price - fixedCostsBy[0].general_price}} kr/mån <br>
-
-      small.text-danger {{ errors.first('getDefaults[getPriceForm][month]:required') }}
 </template>
 
 <script>
@@ -37,60 +33,46 @@ export default {
   },
   computed: {
     ...mapState('product', ['vehicle', 'priceForm']),
-    ...mapState('order', ['residual', 'cash_payment']),
+    ...mapState('order', ['residual', 'cash_payment', 'vehicleCostId']),
+    ...mapState('filters', ['finance_form_name']),
     ...mapState('reseller', {
-      customStyle: (state) =>
-        state.customStyle.firstStep ? state.customStyle.firstStep : {}
+      siteStyle: (state) =>
+        state.siteStyle.firstStep ? state.siteStyle.firstStep : {}
     }),
-    ...mapGetters('product', ['getDefaults', 'getPriceForm']),
-    ...mapGetters('order', ['vehicleCostId']),
-    vehicleCostId: {
-      get() {
-        return this.$store.state.order.vehicleCostId
-      },
-      set(value) {
-        this.$store.commit('order/setVehicleCostId', value)
-      }
-    },
+    ...mapGetters('product', ['getDefaults', 'getFixedCostByMonthAndDistance']),
     month() {
-      return this.getDefaults[this.getPriceForm].months
+      return this.getDefaults[this.finance_form_name].months
     },
     distance() {
-      return this.getDefaults[this.getPriceForm].distance
+      return this.getDefaults[this.finance_form_name].distance
     }
   },
   methods: {
-    ...mapActions('product', [
-      'getFixedCostByMonthAndDistance',
-      'updateDefaults'
-    ]),
-    setVehicleCostId(fixedCost) {
+    ...mapActions('product', ['updateDefaults', 'FETCH_CALC_DEPENDENCIES']),
+    ...mapActions('order', ['SET']),
+    async setVehicleCostId(fixedCost) {
       const { id, months, residual } = fixedCost
-      const _this = this
 
-      this.vehicleCostId = id
-
-      this.getFixedCostByMonthAndDistance([
+      const cost = this.getFixedCostByMonthAndDistance([
         months,
-        this.getDefaults[this.getPriceForm].distance
-      ]).then((cost) => {
-        this.$store.dispatch('order/saveAllFields', {
-          vehicleCostId: cost.id,
-          totalMonthlyPrice: cost.general_price,
-          residual
-        })
+        this.getDefaults[this.finance_form_name].distance
+      ])
 
-        this.$store.dispatch('product/updateVehicle', {
-          vehicleCostId: cost.id,
-          residual
-        })
+      this.SET({ mutation: 'setVehicleCostId', value: id })
+      this.SET({
+        mutation: 'setTotalMonthlyPrice',
+        value: cost.general_price
+      })
+      this.SET({ mutation: 'setResidual', value: residual })
 
-        _this.updateDefaults({
-          form: _this.getPriceForm,
-          months,
-          id: cost.id,
-          residual
-        })
+      await this.FETCH_CALC_DEPENDENCIES()
+
+      await this.updateDefaults({
+        form: this.finance_form_name,
+        price: cost.general_price,
+        months,
+        id,
+        residual
       })
     }
   }

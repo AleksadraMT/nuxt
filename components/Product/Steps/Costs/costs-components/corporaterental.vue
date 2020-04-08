@@ -5,7 +5,7 @@
     )
       span
         i.fas.fa-chevron-right.costs-list-chevron
-        span.costs-list-title-text Långtidshyra
+        span.costs-list-title-text Företagshyra
       span.costs-list-price
        span.big {{ costPrice }}
        | &nbsp;&nbsp;kr/mån

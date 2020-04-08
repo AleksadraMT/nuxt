@@ -25,10 +25,8 @@ export default {
     fixedCostsByMonth: []
   }),
   mounted() {
-    if (this.finance_form_name) {
-      this.getFixedCostsByDistance()
-      this.getFixedCostsByMonth()
-    }
+    this.getFixedCostsByDistance()
+    this.getFixedCostsByMonth()
   },
   computed: {
     ...mapState('product', ['vehicle', 'modelColor']),
