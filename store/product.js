@@ -153,7 +153,8 @@ export const mutations = {
   setModelColor: (state, modelColor) => (state.modelColor = modelColor),
   setResidualVisibility: (state, visibility) =>
     (state.residualVisibility = visibility),
-  setDefaults: (state, defaults) => (state.defaults = defaults)
+  setDefaults: (state, defaults) => (state.defaults = defaults),
+  setDeliveryType: (state, deliveryType) => (state.deliveryType = deliveryType)
 }
 
 export const actions = {
@@ -225,7 +226,7 @@ export const actions = {
 
     dispatch(
       'order/SET',
-      { mutation: 'setTotalMonthlyPrice', value: getters.calculatePrice },
+      { mutation: 'setTotalMonthlyPrice', value: getPrice(cost) },
       { root: true }
     )
 

@@ -136,5 +136,13 @@ export default {
 
       return isNaN(price) ? 0 : formatPrice(price)
     }
+  },
+  watch: {
+    finance_form_name(n) {
+      if (n) {
+        this.getFixedCostsByDistance()
+        this.getFixedCostsByMonth()
+      }
+    }
   }
 }

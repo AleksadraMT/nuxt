@@ -35,9 +35,23 @@
             .step-subtitle-container
               Costs
 
-            div(v-if="homeDelivery && vehicle.home_delivery")
-            .step-subtitle.m-t-20 
-              strong Leveransalternativ
+            Delivery
+
+        .col-md-6.order-md-2.order-1.m-t-20
+          MainVehicleInfo
+
+          a.pdf-link.m-t-10(
+            :href="vehicle.pdf"
+            target="_blank"
+            v-if="vehicle.pdf"
+            @click="setDataLayerForDownloadBrochure()"
+          )
+            img(src="~/assets/img/pdf.svg" alt="pdf")
+            | Ladda ner broschyr
+          .step-text.m-t-10(v-html="vehicle.description")
+          .step-subtitle.m-t-20 Exempel på utrustning
+          collapse-box.custom-style-box(:min-height="183" :overflow="true")
+            div.text-left(v-html="vehicle.specs")
 
 </template>
 
@@ -48,6 +62,9 @@ import Gallery from '~/components/Common/Galery.vue'
 import ModelColor from '~/components/Product/Steps/Common/ModelColor.vue'
 import VehicleDescription from '~/components/Product/Steps/Common/VehicleDescription.vue'
 import Costs from '~/components/Product/Steps/Costs/Costs.vue'
+import Delivery from '~/components/Product/Steps/Common/Delivery.vue'
+import MainVehicleInfo from '~/components/Product/Steps/Common/MainVehicleInfo.vue'
+import CollapseBox from '~/components/Common/CollapseBox.vue'
 
 export default {
   name: 'StepGeneral',
@@ -55,17 +72,44 @@ export default {
     Gallery,
     ModelColor,
     VehicleDescription,
-    Costs
+    Costs,
+    Delivery,
+    MainVehicleInfo,
+    CollapseBox
   },
   computed: {
     ...mapState('product', ['modelColor', 'vehicle']),
     ...mapState('reseller', ['siteStyle']),
-    ...mapState('settings', ['homeDelivery']),
     mainImageUrl() {
       return this.modelColor && this.modelColor.image
         ? this.modelColor.image.url
         : ''
     }
+  },
+  methods: {
+    setDataLayerForDownloadBrochure() {
+      // if (Object.keys(this.vehicle).length !== 0 && this.vehicle) {
+      //   dataLayer.push({
+      //     brand: this.vehicle.brand,
+      //     googleAccount: googleAccount,
+      //     pageName: this.$route.name,
+      //     languageCode: 'sv',
+      //     countryCode: 'SE',
+      //     brochureName: this.downloadDocName,
+      //     brochureType: this.downloadDocType,
+      //     vehicleCategory: this.vehicle.type,
+      //     vehicleModel: this.vehicle.model,
+      //     vehicleId: this.vehicle.id,
+      //     dealerName: this.resellerInfo.name,
+      //     dealerId: this.resellerInfo.id,
+      //     event: 'download',
+      //   });
+      // }
+    }
   }
 }
 </script>
+
+<style lang="sass">
+@import '~/assets/sass/steps.sass'
+</style>

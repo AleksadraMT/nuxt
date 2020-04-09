@@ -15,11 +15,11 @@
         div
           .costs-list-subtitle.m-t-20
             strong Totalpris {{ !isVatIncluded ? '(ex. moms)' : '' }}
-          .m-t-15.big {{ formatPrice(totalPrice) }} kr
+          .m-t-15.big {{ totalPrice }} kr
         div
           .costs-list-subtitle.m-t-20
             strong Finansierat belopp
-          .m-t-15.big {{ formatPrice(totalPrice - calculatedCashPaymentPrice) }} kr
+          .m-t-15.big {{ totalPrice - calculatedCashPaymentPrice }} kr
         div
           .costs-list-subtitle.m-t-20
             strong Ränta
@@ -46,7 +46,7 @@
             @drag-end="sliderChange($event)"
           )
             <template #tooltip="{ index }">
-              <div><strong>{{formatPrice(calculatedCashPaymentPrice)}} <span class="tooltip-text-small">kr</span> ({{ cashPayment }}%)</strong></div>
+              <div><strong>{{calculatedCashPaymentPrice}} <span class="tooltip-text-small">kr</span> ({{ cashPayment }}%)</strong></div>
             </template>
 
       div(v-if="residualVisibility")
@@ -71,7 +71,7 @@
               @drag-end="sliderChange($event)"
             )
               <template #tooltip="{ index }">
-                <div><strong>{{formatPrice(calculatedResidualPrice)}} <span class="tooltip-text-small">kr</span> ({{ residual }}%)</strong></div>
+                <div><strong>{{calculatedResidualPrice}} <span class="tooltip-text-small">kr</span> ({{ residual }}%)</strong></div>
               </template>
 
       MonthChoiser(

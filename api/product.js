@@ -84,6 +84,28 @@ class ProductApi {
       throw new Error(err)
     }
   }
+
+  async checkPostalCode(data) {
+    const { auth, postcode } = data
+
+    try {
+      return await axios({
+        method: 'GET',
+        url: process.env.BASE_URL + `postal-code`,
+        headers: {
+          Accept: 'application/json',
+          'X-Partner-Key': process.env.NUXT_ENV_PARTNER_KEY,
+          'Content-Type': 'application/json',
+          Authorization: auth
+        },
+        params: {
+          postcode
+        }
+      })
+    } catch (error) {
+      return error.response.data
+    }
+  }
 }
 
 // eslint-disable-next-line no-undef

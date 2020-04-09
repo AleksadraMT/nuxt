@@ -134,19 +134,15 @@ export default {
   methods: {
     formatPrice,
     ...mapMutations('order', ['setResidual', 'setCashPayment']),
-    ...mapActions('product', ['updateDefaults']),
-    sliderChange() {
+    ...mapActions('product', ['FETCH_CALC_DEPENDENCIES', 'updateDefaults']),
+    async sliderChange() {
       this.updateDefaults({
         form: this.finance_form_name,
         residual: this.residual,
         id: this.vehicleCostId
       })
 
-      this.$store.dispatch('product/updateVehicle', {
-        residual: this.residual,
-        cash_payment: this.cashPayment,
-        vehicleCostId: this.vehicleCostId
-      })
+      await this.FETCH_CALC_DEPENDENCIES()
     },
     setActive(value) {
       this.$emit('click', value)
@@ -161,8 +157,6 @@ export default {
       return pricesObj ? pricesObj[key] : 0
     },
     getTooltipsAndSetPosition() {
-      if (!process.client) return
-
       const slidersTooltips = document.querySelectorAll(
         '.vue-slider-dot-tooltip'
       )
@@ -205,11 +199,7 @@ export default {
         this.vehicleCostId &&
         call
       ) {
-        this.$store.dispatch('product/updateVehicle', {
-          residual: n,
-          cash_payment: this.cashPayment,
-          vehicleCostId: this.vehicleCostId
-        })
+        this.FETCH_CALC_DEPENDENCIES()
 
         call = false
       }
@@ -221,11 +211,7 @@ export default {
         this.vehicleCostId &&
         call
       ) {
-        this.$store.dispatch('product/updateVehicle', {
-          residual: this.residual,
-          cash_payment: n,
-          vehicleCostId: this.vehicleCostId
-        })
+        this.FETCH_CALC_DEPENDENCIES()
 
         call = false
       }

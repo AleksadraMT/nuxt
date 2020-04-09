@@ -106,6 +106,19 @@ export default {
       if (!num || num === 0) return num
 
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    },
+    getPrice(costs, standardPrice) {
+      let extraPrice = 0
+      const serviceCost = costs.service_cost !== null ? costs.service_cost : 0
+      const basicPrice = standardPrice || costs.calculated_price
+
+      if (costs.extraFields.data.length) {
+        extraPrice = costs.extraFields.data.reduce((sum, item) => {
+          return sum + item.price
+        }, 0)
+      }
+
+      return basicPrice + serviceCost + extraPrice
     }
   }
 }

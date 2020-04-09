@@ -16,6 +16,8 @@
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 
+import Helper from '~/mixins/Helper'
+
 export default {
   components: {
     privaterental: () => import('./costs-components/privaterental'),
@@ -24,6 +26,7 @@ export default {
     corporaterental: () => import('./costs-components/corporaterental'),
     corporateleasing: () => import('./costs-components/corporateleasing')
   },
+  mixins: [Helper],
   data: () => ({
     sortedCosts: {},
     sendCosts: true
@@ -35,33 +38,19 @@ export default {
         state.resellerInfo.financeForms &&
         !!state.resellerInfo.financeForms.data.length
           ? state.resellerInfo.financeForms.data
-          : []
+          : [],
+      financeFormCollectionName: (state) => state.financeFormCollectionName
     }),
     ...mapState('order', ['residual', 'cash_payment', 'vehicleCostId']),
     ...mapState('filters', ['finance_form_name']),
     ...mapGetters('product', [
       'getDefaults',
       'fixedCostByDistanceAndMonth',
-      'getSortedCosts'
-    ]),
-    ...mapGetters('reseller', ['getFinanceFormName', 'getFinanceFormIdByName'])
+      'getSortedCosts',
+      'calculatePrice'
+    ])
   },
-  watch: {
-    vehicle() {
-      if (!this.finance_form_name) {
-        this.setFinanceFormName(this.getFinanceFormName)
-      }
-
-      if (typeof this.isHasPriceData('allow_residual') === 'boolean')
-        this.setResidualVisibility(this.isHasPriceData('allow_residual'))
-
-      this.getCostsObj()
-    }
-  },
-  created() {
-    if (!this.finance_form_name)
-      this.setFinanceFormName(this.getFinanceFormName)
-
+  mounted() {
     this.getCostsObj()
   },
   methods: {
@@ -72,7 +61,13 @@ export default {
     ...mapActions('order', ['SET']),
     getCostsObj() {
       const availableForms = this.financeForms.length
-        ? this.financeForms.reduce((arr, next) => arr.concat(next.name), [])
+        ? this.financeForms.reduce((arr, next) => {
+            if (this.financeFormCollectionName === next.type.toLowerCase()) {
+              return arr.concat(next.name)
+            }
+
+            return arr
+          }, [])
         : []
 
       if (this.vehicle.costs) {
@@ -93,19 +88,23 @@ export default {
       }
     },
     async setActive(tabName) {
-      this.setFinanceFormName(tabName)
-      this.SET({ mutation: 'setAccessories', value: [] })
-
       const financeFormId = this.financeForms.find(
         (item) => item.name === tabName
       ).id
 
+      this.setFinanceFormName(tabName)
       this.setFinanceFormId(financeFormId)
+      this.SET({ mutation: 'setAccessories', value: [] })
 
       await this.FETCH_STYLE()
 
       if (typeof this.isHasPriceData('allow_residual') === 'boolean')
         this.setResidualVisibility(this.isHasPriceData('allow_residual'))
+
+      this.SET({
+        mutation: 'setTotalMonthlyPrice',
+        value: this.getDefaults[tabName].price
+      })
 
       this.sendCosts = true
     },
@@ -138,24 +137,6 @@ export default {
       const defaultCashPayment = this.isHasPriceData('default_cash_payment')
 
       return storeCashPayment || defaultCashPayment
-    },
-    getVehicleId() {
-      if (!Object.keys(this.getDefaults).length) return false
-
-      const cost = this.vehicle.costs.data
-        .filter((item) => item.finance_form === this.finance_form_name)
-        .filter(
-          (item) =>
-            item.finance_form === this.finance_form_name &&
-            item.months === this.getDefaults[this.finance_form_name].months &&
-            item.distance === this.getDefaults[this.finance_form_name].distance
-        )
-        .sort((a, b) => b.months - a.months)
-        .reduce((accum, value) =>
-          accum.calculated_price < value.calculated_price ? accum : value
-        )
-
-      return cost.id
     }
   }
 }

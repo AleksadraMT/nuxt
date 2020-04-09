@@ -40,14 +40,6 @@ export default {
     ...mapState('filters', ['finance_form_name']),
     ...mapGetters('product', ['getDefaults', 'getFixedCostByMonthAndDistance']),
     ...mapGetters('order', ['vehicleCostId']),
-    vehicleCostId: {
-      get() {
-        return this.$store.state.order.vehicleCostId
-      },
-      set(value) {
-        this.$store.commit('order/setVehicleCostId', value)
-      }
-    },
     distance() {
       return this.getDefaults[this.finance_form_name].distance
     },
