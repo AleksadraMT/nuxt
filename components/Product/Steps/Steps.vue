@@ -13,7 +13,7 @@
       )
       StepOrder(
         v-show="activeStep.index === 3"
-      )
+        )
       StepConfirmed(
         v-show="activeStep.index === 4"
       )
@@ -24,6 +24,7 @@
 import { mapState, mapActions } from 'vuex'
 // import {googleAccount} from '@/config/defaultValues'
 
+import { ValidationObserver } from 'vee-validate'
 import OrderStatus from '~/components/Product/OrderStatus/OrderStatus.vue'
 import StepGeneral from '~/components/Product/Steps/StepGeneral.vue'
 import StepOptions from '~/components/Product/Steps/StepOptions.vue'
@@ -32,6 +33,7 @@ import StepConfirmed from '~/components/Product/Steps/StepConfirmed.vue'
 
 export default {
   components: {
+    ValidationObserver,
     OrderStatus,
     StepGeneral,
     StepOptions,

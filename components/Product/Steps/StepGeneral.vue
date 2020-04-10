@@ -37,6 +37,8 @@
 
             Delivery
 
+            Pickup
+
         .col-md-6.order-md-2.order-1.m-t-20
           MainVehicleInfo
 
@@ -65,6 +67,7 @@ import Costs from '~/components/Product/Steps/Costs/Costs.vue'
 import Delivery from '~/components/Product/Steps/Common/Delivery.vue'
 import MainVehicleInfo from '~/components/Product/Steps/Common/MainVehicleInfo.vue'
 import CollapseBox from '~/components/Common/CollapseBox.vue'
+import Pickup from '~/components/Product/Steps/Common/Pickup.vue'
 
 export default {
   name: 'StepGeneral',
@@ -75,7 +78,8 @@ export default {
     Costs,
     Delivery,
     MainVehicleInfo,
-    CollapseBox
+    CollapseBox,
+    Pickup
   },
   computed: {
     ...mapState('product', ['modelColor', 'vehicle']),

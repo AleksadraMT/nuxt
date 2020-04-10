@@ -7,7 +7,7 @@ export default async function({ route, redirect, store, commit }) {
         (item) =>
           item.type.name.toLowerCase() === route.query.type.toLowerCase()
       )
-      commit('filters/setType', type)
+      store.commit('filters/setType', type)
     }
   }
 
@@ -17,12 +17,12 @@ export default async function({ route, redirect, store, commit }) {
       .toLowerCase()
 
     if (store.state.filters.finance_form_name.toLowerCase() !== routeFinForm) {
-      const newFinForm = store.state.reseller.resellerInfo.financeForms.find(
+      const newFinForm = store.state.reseller.resellerInfo.financeForms.data.find(
         (item) => item.name.toLowerCase() === routeFinForm
       )
 
-      commit('filters/setFinanceFormId', newFinForm.id)
-      commit('filters/setFinanceFormName', newFinForm.name)
+      store.commit('filters/setFinanceFormId', newFinForm.id)
+      store.commit('filters/setFinanceFormName', newFinForm.name)
     }
   }
 

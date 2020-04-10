@@ -19,7 +19,7 @@
           )  Kundtjänst
           nuxt-link.sub-menu-link(
             v-if="isPrivate"
-            :to="{ name: 'omleaseonline', params: {base: $route.params.base}}"
+            :to="{ name: 'base-omleaseonline', params: {base: $route.params.base}}"
             ) Om Leaseonline
           //- @click.prevent="scrollToBlock($event, 'home')" data-id="seo-block"
           a.sub-menu-link.scroll-item(
@@ -31,7 +31,7 @@
             @click.prevent="SET({mutation: 'setBrandListVisible', value: !brandListVisible})"
           ) Bilmärken
           nuxt-link.sub-menu-link( 
-            :to="{ name: 'faq', params: {base: $route.params.base}}"
+            :to="{ name: 'base-faq', params: {base: $route.params.base}}"
             ) Vanliga frågor och svar
           //- @click.prevent="scrollToBlock($event, 'home')"
           a.sub-menu-link.scroll-item( 

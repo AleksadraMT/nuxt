@@ -34,7 +34,8 @@ export const state = () => ({
   deliveryType: 'delivery_type_stardard',
   modelColor: {},
   defaults: {},
-  residualVisibility: true
+  residualVisibility: true,
+  personNumberError: ''
 })
 
 export const getters = {
@@ -124,6 +125,10 @@ export const getters = {
 
     return days
   },
+  deliveryDaysCount: (state) =>
+    state.modelColor
+      ? state.modelColor.delivery_days_from
+      : state.vehicle.deliveryTime.days_count,
   getDefaults: (state) => state.defaults,
   getFixedCostByMonthAndDistance: (state) => ([month, distance]) => {
     if (state.vehicle.costs)
@@ -134,7 +139,8 @@ export const getters = {
       )
 
     return {}
-  }
+  },
+  getPersonNumberError: (state) => state.personNumberError
 }
 
 export const mutations = {
@@ -154,7 +160,8 @@ export const mutations = {
   setResidualVisibility: (state, visibility) =>
     (state.residualVisibility = visibility),
   setDefaults: (state, defaults) => (state.defaults = defaults),
-  setDeliveryType: (state, deliveryType) => (state.deliveryType = deliveryType)
+  setDeliveryType: (state, deliveryType) => (state.deliveryType = deliveryType),
+  setPersonNumberError: (state, error) => (state.personNumberError = error)
 }
 
 export const actions = {
@@ -328,6 +335,9 @@ export const actions = {
     if (id) copyDefaults[form].id = id
 
     commit('setDefaults', copyDefaults)
+  },
+  updatePersonNumberError({ commit }, errorString) {
+    commit('setPersonNumberError', errorString)
   }
 }
 
