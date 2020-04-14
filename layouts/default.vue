@@ -20,13 +20,22 @@ export default {
   },
   mixins: [Helper],
   computed: {
-    ...mapState('reseller', ['metaDescription', 'resellerInfo']),
+    ...mapState('reseller', ['metaDescription', 'resellerInfo', 'token']),
     ...mapGetters({
       style: 'reseller/getSiteStyle'
     })
   },
   mounted() {
-    this.$siteStyle(this.style)
+    const siteStyle = localStorage.getItem('siteStyle')
+
+    if (siteStyle === null) {
+      this.$siteStyle(this.style)
+      localStorage.setItem('siteStyle', JSON.stringify(this.style))
+    } else {
+      this.$siteStyle(JSON.parse(siteStyle))
+    }
+
+    localStorage.setItem('Authorization', this.token)
   },
   head() {
     return this.metaData({

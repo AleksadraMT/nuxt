@@ -69,7 +69,7 @@
             CostDescription
 
           .step-btns.m-t-20.d-none.d-lg-block
-            a.step-btn.btn-hover(href="#" @click.prevent="goToNext")
+            a.step-btn.btn-hover(href="#" @click.prevent="goTo")
               | {{ accessoryPageButton }}
               i.fas.fa-chevron-right
 </template>
@@ -133,6 +133,9 @@ export default {
     },
     closePopup() {
       this.$set(this.$data, 'isPopup', false)
+    },
+    goTo() {
+      this.$emit('goTo', 2)
     }
   }
 }

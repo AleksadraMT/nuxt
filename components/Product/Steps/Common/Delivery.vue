@@ -134,6 +134,7 @@ export default {
           mutation: 'setHomeDelivery',
           value: this.deliveryType === 'delivery_type_home'
         })
+
         this.SET({
           mutation: 'setTotalMonthlyPrice',
           value: this.calculatePrice
@@ -163,7 +164,10 @@ export default {
     }
   },
   mounted() {
-    this.SET({ mutation: 'setHomeDelivery', value: 'delivery_type_home' })
+    this.SET({
+      mutation: 'setHomeDelivery',
+      value: this.deliveryType === 'delivery_type_home'
+    })
   },
   methods: {
     ...mapActions('order', ['SET']),

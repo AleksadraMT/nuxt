@@ -193,6 +193,12 @@ export const actions = {
       ? {}
       : response.data.metaData
 
+    dispatch(
+      'order/SET',
+      { mutation: 'setVehicleId', value: id },
+      { root: true }
+    )
+
     commit('setVehicleMeta', {
       title: `${metaData.title || ''} ${vehicle.category} ${vehicle.brand} 
         ${vehicle.model} ${vehicle.name}`,

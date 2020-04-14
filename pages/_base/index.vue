@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 import Maintenance from '~/components/Common/Maintenance'
 import CarouselFull from '~/components/Carousel/CarouselFull'
 import UserFilter from '~/components/Filter/Filter'
@@ -43,6 +45,12 @@ export default {
     BrandsList,
     FaqList,
     Seo
+  },
+  mounted() {
+    this.setIsHomePage(true)
+  },
+  methods: {
+    ...mapMutations('settings', ['setIsHomePage'])
   },
   middleware: 'vehiclesList'
 }

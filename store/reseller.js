@@ -65,6 +65,10 @@ export const actions = {
     })
 
     commit('setSiteStyle', response.data)
+
+    if (process.client) {
+      localStorage.setItem('siteStyle', JSON.stringify(response.data))
+    }
   },
   UPDATE_COLLECTION_NAME({ commit }, name) {
     commit('setFinanceFormsCollectionName', name)

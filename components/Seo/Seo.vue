@@ -166,9 +166,11 @@
 </template>
 
 <script>
+import Check from '~/components/svg/check.vue'
+
 export default {
   components: {
-    Check: () => import('~/components/svg/check.vue')
+    Check
   },
   data: () => ({
     textVisibility: false

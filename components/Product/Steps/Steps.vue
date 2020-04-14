@@ -7,15 +7,15 @@
     template
       StepGeneral(
         v-show="activeStep.index === 1"
+        @goTo="goTo"
       )
       StepOptions(
         v-show="activeStep.index === 2"
+        @goTo="goTo"
       )
       StepOrder(
         v-show="activeStep.index === 3"
-        )
-      StepConfirmed(
-        v-show="activeStep.index === 4"
+        @goTo="goTo"
       )
 
 </template>
@@ -29,7 +29,6 @@ import OrderStatus from '~/components/Product/OrderStatus/OrderStatus.vue'
 import StepGeneral from '~/components/Product/Steps/StepGeneral.vue'
 import StepOptions from '~/components/Product/Steps/StepOptions.vue'
 import StepOrder from '~/components/Product/Steps/StepOrder.vue'
-import StepConfirmed from '~/components/Product/Steps/StepConfirmed.vue'
 
 export default {
   components: {
@@ -37,8 +36,7 @@ export default {
     OrderStatus,
     StepGeneral,
     StepOptions,
-    StepOrder,
-    StepConfirmed
+    StepOrder
   },
   data: () => ({
     activeStep: {

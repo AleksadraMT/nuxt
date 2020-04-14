@@ -1,4 +1,7 @@
+/* eslint-disable no-prototype-builtins */
 import moment from 'moment'
+
+import OrderApi from '~/api/order'
 
 export const state = () => ({
   status: 1,
@@ -71,5 +74,78 @@ export const actions = {
     const { mutation, value } = data
 
     commit(mutation, value)
+  },
+  async sendBankId({ state, rootState }, { data }) {
+    const route = `${window.location.origin}${
+      window.location.pathname
+    }/confirmed/${btoa(data.id)}?id=${data.vehicle.id}?collectionType=${
+      this.$route.params.collectionType
+    }`
+
+    localStorage.setItem('orderInfo', data.id)
+
+    await OrderApi.bankIdLogin({
+      auth: rootState.reseller.token,
+      route,
+      personNumber: state.personNumber
+    })
+  },
+  async postOrder({ state, rootState }) {
+    const data = {}
+
+    // eslint-disable-next-line no-extend-native
+    String.prototype.camelCaseToUnderScoreCase = function() {
+      return this.replace(/([A-Z])/g, function($1) {
+        return '_' + $1.toLowerCase()
+      })
+    }
+
+    for (const field in state) {
+      data[field.camelCaseToUnderScoreCase()] = state[field]
+    }
+
+    if (data.hasOwnProperty('orders_list')) delete data.orders_list
+
+    if (
+      !['Down payment', 'Corporate leasing'].includes(
+        rootState.filters.finance_form_name
+      )
+    ) {
+      if (data.hasOwnProperty('residual')) delete data.residual
+      if (data.hasOwnProperty('cash_payment')) delete data.cash_payment
+    }
+
+    if (
+      !['Private rental', 'Corporate rental'].includes(
+        rootState.filters.finance_form_name
+      )
+    ) {
+      if (data.hasOwnProperty('pick_up_date')) delete data.pick_up_date
+      if (data.hasOwnProperty('pick_up_time')) delete data.pick_up_time
+    }
+    if (
+      !['Corporate leasing', 'Corporate rental'].includes(
+        rootState.filters.finance_form_name
+      )
+    ) {
+      if (data.hasOwnProperty('company_number')) delete data.company_number
+    }
+
+    if (!rootState.product.residualVisibility) {
+      if (data.hasOwnProperty('residual')) delete data.residual
+    }
+
+    if (rootState.product.deliveryType === 'delivery_type_stardard') {
+      if (data.hasOwnProperty('postal_code_id')) delete data.postal_code_id
+    } else if (rootState.product.deliveryType === 'delivery_type_home') {
+      if (data.hasOwnProperty('location_id')) delete data.location_id
+    }
+
+    data.home_delivery = state.home_delivery
+
+    return await OrderApi.postOrders({
+      auth: rootState.reseller.token,
+      values: data
+    })
   }
 }

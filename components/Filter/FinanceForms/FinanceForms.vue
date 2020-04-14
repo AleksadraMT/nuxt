@@ -30,11 +30,12 @@ import { mapActions } from 'vuex'
 import FinanceFormsMixin from './FinanceFormsMixin'
 import translate from '~/lang/lang.js'
 import Helper from '~/mixins/Helper.js'
+import Check from '~/components/svg/check.vue'
 
 export default {
   name: 'FinanceForms',
   components: {
-    Check: () => import('@/components/svg/check')
+    Check
   },
   mixins: [Helper, FinanceFormsMixin],
   watch: {

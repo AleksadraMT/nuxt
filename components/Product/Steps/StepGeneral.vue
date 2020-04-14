@@ -39,6 +39,13 @@
 
             Pickup
 
+          .m-b-20
+            a.step-btn.btn-hover(
+              href="!#"
+              @click.prevent="goTo"
+            ) {{ firstStepButton }}
+              i.fas.fa-chevron-right
+
         .col-md-6.order-md-2.order-1.m-t-20
           MainVehicleInfo
 
@@ -83,7 +90,13 @@ export default {
   },
   computed: {
     ...mapState('product', ['modelColor', 'vehicle']),
-    ...mapState('reseller', ['siteStyle']),
+    ...mapState('reseller', {
+      siteStyle: (state) => state.siteStyle,
+      firstStepButton: (state) =>
+        state.siteStyle.firstStep
+          ? state.siteStyle.firstStep.submit_btn_text
+          : 'Vidare till tillval'
+    }),
     mainImageUrl() {
       return this.modelColor && this.modelColor.image
         ? this.modelColor.image.url
@@ -91,6 +104,9 @@ export default {
     }
   },
   methods: {
+    goTo() {
+      this.$emit('goTo', 1)
+    },
     setDataLayerForDownloadBrochure() {
       // if (Object.keys(this.vehicle).length !== 0 && this.vehicle) {
       //   dataLayer.push({
