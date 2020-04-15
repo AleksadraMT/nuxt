@@ -11,7 +11,7 @@
         div
           .row(v-if="hasMore")
             .col-md-12.m-t-20.m-b-30.text-center
-              div.list-load-more(@click="FETCH_ALL({toNextPage: true})") Visa fler bilar
+              div.list-load-more(@click="FETCH_ALL({toNextPage: true, add: true})") Visa fler bilar
                 i.fas.fa-chevron-down.arrow
       .legal-block(v-if="terms")
         .container

@@ -1,0 +1,235 @@
+.brand
+  &-detail
+    max-width: calc(1248px - 30px)
+    margin: 0 auto 40px
+    padding: 0 15px
+    color: #515255
+
+  &-models-item
+    padding: 0 15px
+    margin-bottom: 10px
+
+    &:hover
+      .brand-models-details
+        background-color: #eee
+
+  &-models-details
+    display: flex
+    flex-direction: column
+    padding: 8px 0
+    margin-top: 10px
+    transition: background-color .2s
+      
+    &.align-center
+      align-items: center
+
+    h4
+      font-weight: 300
+      font-size: 18px
+      margin-top: 0
+      margin-bottom: 0
+      padding: 0
+      background: none
+      text-align: center
+      @media screen and (max-width: 480px)
+        font-size: 23px
+      
+  &-model-img
+    height: 305px
+    background-size: cover
+    background-repeat: no-repeat
+    width: 100%
+    background-position: center 60%
+    margin-bottom: 39px
+
+  &-models-img-container
+    text-align: center
+
+  &-title
+    text-transform: uppercase
+    display: flex
+    line-height: 22px
+    font-size: 30px
+    text-align: center
+    margin-bottom: 29px
+    color: #515255
+    font-weight: 300
+    @media screen and (max-width: 480px)
+      font-size: 22px
+
+    &:before,
+    &:after
+      content: ""
+      position: relative
+      height: 1px
+      background-color: #000
+      top: 10px
+      overflow: hidden
+      -ms-flex-positive: 1
+      flex-grow: 1
+      @media screen and (max-width: 480px)
+        display: none
+
+    &:before
+      margin-right: 42px
+
+    &:after
+      margin-left: 42px
+
+  &-info
+    width: 70%
+    margin: 10px auto 7px
+    text-align: center
+    font-weight: 400
+    font-size: 16px
+    @media screen and (max-width: 768px)
+      width: 95%
+
+  &-cut-info
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+  &-description
+    font-size: 16px
+    font-weight: 100
+    padding-bottom: 40px
+    display: none
+    padding-top: 30px
+    justify-content: space-between
+    align-self: flex-start
+    flex-direction: row-reverse
+    @media screen and (max-width: 480px)
+      flex-direction: column-reverse
+
+    > div
+      width: 50%
+      padding: 0 10px
+      &:first-child
+        padding-right: 0
+      &:last-child
+        padding-left: 0
+
+      @media screen and (max-width: 480px)
+         width: 100%
+         padding: 0
+
+    img
+      width: 48%
+      margin-top: 10px
+      margin-bottom: 15px
+      float: left
+      margin-right: 4%
+
+    p
+      margin: 26px 0 23px
+      line-height: 26px
+      font-weight: 100
+    
+    a
+      font-weight: 400
+      color: #008C7D
+    
+    h3, h4
+      font-size: 26px
+      font-weight: 300
+      margin: 20px 0 20px
+      line-height: 135%
+
+    &.visible
+      display: flex
+
+  &-models
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+    @media screen and (max-width: 768px)
+      flex-direction: column
+
+    a
+      color: #515255
+      text-decoration: none
+      width: calc(100% / 8)
+      &:hover
+        text-decoration: none
+
+      @media screen and (max-width: 768px)
+        width: 100%
+
+  &-button
+    display: inline-block
+    color: #fff
+    text-align: center
+    font-weight: 800
+    position: relative
+    overflow: hidden
+    transition: all .3s ease
+    cursor: pointer
+    outline: 0
+    border: 0
+    font-size: 12px
+    padding: 9px 48px
+    background: #008C7D
+
+.hr-black 
+  background-color: #000
+
+.colwrap
+  padding-top: 14px
+  padding-bottom: 60px
+  display: flex
+  width: 100%
+  @media screen and (max-width: 768px)
+    flex-direction: column
+
+  h3
+    font-size: 26px
+    font-weight: 300
+    margin: 20px 0
+    line-height: 135%
+
+  p
+    margin: 20px 0
+    line-height: 26px
+    font-weight: 100
+  
+  .column-2
+    width: calc(50% - 30px)
+    &:nth-child(odd)
+      margin-right: 30px
+    &:nth-child(even)
+      margin-left: 30px
+    @media screen and (max-width: 768px)
+      width: 100%
+      &:nth-child(odd)
+        margin-right: 0
+      &:nth-child(even)
+        margin-left: 0
+
+.advantages
+  display: flex
+  align-items: flex-start
+  justify-content: center
+  flex-wrap: wrap
+
+.advantage
+  vertical-align: top
+  position: relative
+  display: inline-block
+  width: 210px
+  font-size: 19px
+  text-align: center
+  font-weight: 700
+  color: #22a7f0
+  margin: 15px
+  i
+    display: block
+    width: 100px
+    height: 100px
+    margin: 0 auto 14px
+    background-size: contain
+    background-repeat: no-repeat
+    background-position: center center
+
+.seo-show-more
+  padding-top: 30px

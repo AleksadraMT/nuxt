@@ -45,11 +45,13 @@
                 :class="showMore?'active':''"
               )
                 .filter-item
-                  //- @click="resetFilters"
-                  button.btn.btn-reset.btn-hover  Rensa Filter
+                  button.btn.btn-reset.btn-hover(
+                    @click="RESET_FILTERS"
+                  )  Rensa Filter
                 .filter-item
-                  //- @click="updateVehicles" 
-                  button.btn.btn-search.btn-hover Sök Bilar
+                  button.btn.btn-search.btn-hover(
+                    @click="FETCH_ALL({toNextPage: true})"
+                  ) Sök Bilar
 
           .row(v-if="getFilters.length > 4")
             div.show-more-row
@@ -125,7 +127,13 @@ export default {
     this.SET({ mutation: 'setFilterShow', value: !this.isMobile() })
   },
   methods: {
-    ...mapActions('filters', ['SET', 'FETCH_FILTERS', 'UPDATE_FILTERS'])
+    ...mapActions('filters', [
+      'SET',
+      'FETCH_FILTERS',
+      'UPDATE_FILTERS',
+      'RESET_FILTERS'
+    ]),
+    ...mapActions('product', ['FETCH_ALL'])
   }
 }
 </script>

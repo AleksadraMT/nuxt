@@ -7,8 +7,10 @@ export default async function({ route, redirect, store, commit }) {
       (item) => item.type.name.toLowerCase() === route.query.type.toLowerCase()
     )
 
-    commit('filters/setType', type)
+    store.commit('filters/setType', type)
   }
+
+  store.commit('filters/removeSelectedFilters')
 
   if (Object.keys(store.state.reseller.resellerInfo).length) return
 

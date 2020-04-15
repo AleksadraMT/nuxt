@@ -1,6 +1,6 @@
 <template lang="pug">
   .types(v-cloak)
-    Filter(
+    UserFilter(
       :showFormsFilter="false"
     )
     .container
@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import { mapMutations, mapState, mapActions } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
-import Filter from '~/components/Filter/Filter.vue'
+import UserFilter from '~/components/Filter/Filter.vue'
 import List from '~/components/ProductsList/List.vue'
 
 import Helper from '~/mixins/Helper'
@@ -33,7 +33,7 @@ import Helper from '~/mixins/Helper'
 export default {
   name: 'Categories',
   components: {
-    Filter,
+    UserFilter,
     List
   },
   mixins: [Helper],
@@ -41,15 +41,14 @@ export default {
     textVisibility: false
   }),
   computed: {
-    ...mapState('landings', ['categoriesLandings']),
-    ...mapState('reseller', ['resellerInfo']),
-    ...mapState('filter', ['allTypes']),
+    ...mapState('landing', ['categoriesLandings']),
+    ...mapState('reseller', ['siteStyle']),
     categorieLanding() {
       return this.categoriesLandings.length
         ? this.categoriesLandings.find(
             (item) =>
               item.url ===
-              `/${this.$route.params.type}/${this.$route.params.categorie}`
+              `/${this.$route.params.type}/${this.$route.params.category}`
           )
         : {}
     },
@@ -102,61 +101,10 @@ export default {
     }
   },
   mounted() {
-    this.onTheHomePage(false)
-
-    if (this.categoriesLandings.length && this.allTypes.length)
-      this.getFilterData()
+    this.setIsHomePage(false)
   },
   methods: {
-    ...mapMutations('global', ['onTheHomePage']),
-    ...mapMutations('filter', [
-      'setSelectedFilters',
-      'setDataLoaded',
-      'setType',
-      'setResellerTypeId'
-    ]),
-    ...mapActions('filter', ['getAllFilterData']),
-    async getFilterData() {
-      const landingType = this.$route.params.type
-      const typeData = this.allTypes.find((item) => {
-        return (
-          item.type.name
-            .replace(/-/g, ' ')
-            .replace(/[åÅ]/g, 'a')
-            .replace(/[öÖ]/g, 'o')
-            .toLowerCase() === landingType
-        )
-      })
-
-      if (!typeData) {
-        this.$router.push({
-          name: 'notfound'
-        })
-      }
-
-      await this.setType(typeData.type.id)
-      await this.setResellerTypeId(typeData.id)
-
-      await this.getAllFilterData({ newResellerId: typeData.id })
-
-      const landing = this.categoriesLandings.find(
-        (item) =>
-          item.url ===
-          `/${this.$route.params.type}/${this.$route.params.categorie}`
-      )
-
-      if (!landing) {
-        this.$router.push({
-          name: 'notfound'
-        })
-
-        return
-      }
-
-      const id = landing.category.id
-
-      this.setSelectedFilters({ name: 'categories', values: [id] })
-    },
+    ...mapMutations('settings', ['setIsHomePage']),
     getHTML(data) {
       return data
         .map((item) => {
@@ -170,12 +118,13 @@ export default {
   head() {
     return this.metaData({
       title: this.metaTitle,
-      logo: this.style.logoFont.favicon,
+      logo: this.siteStyle.logoFont.favicon,
       description: this.metaDescription,
       keywords: this.metaKeywords,
-      url: this.vehicleMeta.url
+      url: this.$route.fullPath
     })
-  }
+  },
+  middleware: 'categoryLanding'
 }
 </script>
 

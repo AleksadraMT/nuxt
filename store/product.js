@@ -151,6 +151,7 @@ export const mutations = {
 
       if (!allVehicleIds.includes(vehicle.id)) state.vehicles.push(vehicle)
     }),
+  setAllVehicles: (state, vehicles) => (state.vehicles = vehicles),
   setVehicle: (state, vehicle) => (state.vehicle = vehicle),
   setVehicleMeta: (state, meta) => (state.vehicleMeta = meta),
   setCurrentStepIndex: (state, index) => (state.currentStepIndex = index),
@@ -166,7 +167,7 @@ export const mutations = {
 
 export const actions = {
   async FETCH_ALL({ commit, rootState, getters }, data) {
-    const { toNextPage } = data
+    const { toNextPage, add } = data
 
     const response = await ProductApi.getAll({
       nextPage: toNextPage ? getters.getNextPage : 1,
@@ -178,7 +179,10 @@ export const actions = {
       selectedFilters: rootState.filters.selectedFilters
     })
 
-    commit('setVehicles', response.data.data)
+    add
+      ? commit('setVehicles', response.data.data)
+      : commit('setAllVehicles', response.data.data)
+
     commit('setPagination', response.data.meta.pagination)
   },
   async FETCH_VEHICLE({ commit, dispatch, getters, rootState }, { id }) {

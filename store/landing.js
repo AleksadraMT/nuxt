@@ -4,7 +4,8 @@ export const state = () => ({
   allLandings: [],
   brandLanding: [],
   modelsLandings: [],
-  categoriesLandings: []
+  categoriesLandings: [],
+  modelData: {}
 })
 
 export const getters = {
@@ -18,7 +19,8 @@ export const mutations = {
   setAllLandings: (state, all) => (state.allLandings = all),
   setBrandLanding: (state, one) => (state.brandLanding = one),
   setModelsLandings: (state, all) => (state.modelsLandings = all),
-  setCategoriesLandings: (state, all) => (state.categoriesLandings = all)
+  setCategoriesLandings: (state, all) => (state.categoriesLandings = all),
+  setModelData: (state, model) => (state.modelData = model)
 }
 
 export const actions = {
@@ -27,8 +29,11 @@ export const actions = {
 
     commit('setAllLandings', response.data.data)
   },
-  async FETCH_BRAND_LANDING({ commit, rootState }) {
-    const response = await LandingsApi.getBrandLanding()
+  async FETCH_BRAND_LANDING({ commit, rootState }, data) {
+    const response = await LandingsApi.getBrandLanding({
+      id: data.id,
+      auth: rootState.reseller.token
+    })
 
     commit('setBrandLanding', response.data)
   },

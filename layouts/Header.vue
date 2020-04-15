@@ -20,7 +20,7 @@
 
       transition(name="slide")
         CategoriesList
-    HeaderBottom(v-if="isBase")
+    HeaderBottom(v-if="isHomePage")
 </template>
 
 <style lang="sass">
@@ -51,16 +51,11 @@ export default {
     CategoriesList,
     HeaderBottom
   },
-  data: () => ({
-    isBase: false
-  }),
   computed: {
     ...mapState('settings', ['isHomePage'])
   },
   mounted() {
     const _this = this
-
-    this.isBase = this.$route.name === 'base'
 
     document.addEventListener('click', function(e) {
       if (

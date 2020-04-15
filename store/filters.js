@@ -172,5 +172,12 @@ export const actions = {
     commit('removeFilters')
     commit('removeSelectedFilters')
     dispatch('FETCH_FILTERS')
+  },
+  RESET_FILTERS({ commit, dispatch }) {
+    commit('removeSelectedFilters')
+    commit('removeFilters')
+
+    dispatch('FETCH_FILTERS')
+    dispatch('product/FETCH_ALL', null, { root: true })
   }
 }

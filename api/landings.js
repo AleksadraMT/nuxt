@@ -18,7 +18,9 @@ class LandingsApi {
     }
   }
 
-  async getBrandLanding(auth, id) {
+  async getBrandLanding(data) {
+    const { auth, id } = data
+
     try {
       return await axios({
         method: 'GET',
