@@ -2,14 +2,14 @@ import { mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState('filters', ['finance_form_name'])
-  },
-  methods: {
+    ...mapState('filters', ['finance_form_name']),
     isRental() {
       return ['Private rental', 'Corporate rental'].includes(
         this.finance_form_name
       )
-    },
+    }
+  },
+  methods: {
     getCollectionName(item, flag) {
       switch (item.toLowerCase()) {
         case 'private':

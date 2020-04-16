@@ -85,9 +85,10 @@ export const actions = {
     commit('setType', type)
   },
   UPDATE_DEFAULTS({ commit, dispatch, rootState }) {
-    const { financeForms, settings } = rootState.reseller.resellerInfo
+    const { financeForms } = rootState.reseller.resellerInfo
     const financeFormsArr = financeForms.data ? financeForms.data : financeForms
-    const financeFormCollectionName = settings.defaultFinanceFormType.toLowerCase()
+    const financeFormCollectionName =
+      rootState.reseller.financeFormCollectionName
     let urlFormName
 
     if (process.client) {
@@ -162,6 +163,7 @@ export const actions = {
     commit('removeFilters')
     commit('removeSelectedFilters')
     dispatch('FETCH_FILTERS')
+    dispatch('product/FETCH_ALL', { toNextPage: false }, { root: true })
   },
   UPDATE_FINANCE_FORM({ commit, dispatch }, form) {
     commit('setFinanceFormId', form.id)
@@ -172,12 +174,40 @@ export const actions = {
     commit('removeFilters')
     commit('removeSelectedFilters')
     dispatch('FETCH_FILTERS')
+    dispatch('product/FETCH_ALL', { toNextPage: false }, { root: true })
   },
   RESET_FILTERS({ commit, dispatch }) {
     commit('removeSelectedFilters')
     commit('removeFilters')
 
     dispatch('FETCH_FILTERS')
-    dispatch('product/FETCH_ALL', null, { root: true })
+    dispatch('product/FETCH_ALL', { toNextPage: false }, { root: true })
+  },
+  UPDATE_VIEW({ commit, dispatch }, { toThe, sort, openSeo }) {
+    let toTheBlock = document.getElementById(toThe)
+
+    if (toTheBlock === null && !openSeo) return
+
+    if (
+      openSeo &&
+      !document.querySelector('.seo-unvisible').classList.contains('visible')
+    ) {
+      document.querySelector('.seo-show-more').click()
+
+      toTheBlock = document.getElementById(toThe)
+    }
+
+    setTimeout(function() {
+      toTheBlock.scrollIntoView({
+        block: 'start',
+        inline: 'start'
+      })
+    }, 0)
+
+    if (sort) {
+      commit('setSelectedTypeOfSort', sort)
+
+      dispatch('product/FETCH_ALL', { toNextPage: false }, { root: true })
+    }
   }
 }

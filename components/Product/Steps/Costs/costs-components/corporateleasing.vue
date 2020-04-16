@@ -31,41 +31,43 @@
         strong Restvärde, kr{{ !isVatIncluded ? ' ex. moms' : '' }}:
       .row.m-t-40
         .costs-list-slider.col-md-12
-          vue-slider(
-            :min="minResidual"
-            :max="maxResidual"
-            v-model="residual"
-            :dotSize="slider.dotSize"
-            :height="slider.height"
-            :silent="true"
-            :contained="true"
-            :drag-on-click="true"
-            :tooltip="'always'"
-            @drag-end="sliderChange($event)"
-          )
-            <template #tooltip="{ index }">
-              <div><strong>{{calculatedResidualPrice}} <span class="tooltip-text-small">kr</span> ({{ residual }}%)</strong></div>
-            </template>
+          ClientOnly
+            vue-slider(
+              :min="minResidual"
+              :max="maxResidual"
+              v-model="residual"
+              :dotSize="slider.dotSize"
+              :height="slider.height"
+              :silent="true"
+              :contained="true"
+              :drag-on-click="true"
+              :tooltip="'always'"
+              @drag-end="sliderChange($event)"
+            )
+              <template #tooltip="{ index }">
+                <div><strong>{{calculatedResidualPrice}} <span class="tooltip-text-small">kr</span> ({{ residual }}%)</strong></div>
+              </template>
 
       .costs-list-subtitle.m-t-20 
         strong Första förhöjd leasingavgift, kr{{ !isVatIncluded ? ' ex. moms' : '' }}:
       .row.m-t-40
         .costs-list-slider.col-md-12
-          vue-slider(
-            :min="minCashPayment"
-            :max="maxCashPayment"
-            v-model="cashPayment"
-            :dotSize="slider.dotSize"
-            :height="slider.height"
-            :silent="true"
-            :contained="true"
-            :drag-on-click="true"
-            :tooltip="'always'"
-            @drag-end="sliderChange($event)"
-          )
-            <template #tooltip="{ index }">
-              <div><strong>{{calculatedCashPaymentPrice}} <span class="tooltip-text-small">kr</span> ({{ cashPayment }}%)</strong></div>
-            </template>
+          ClientOnly
+            vue-slider(
+              :min="minCashPayment"
+              :max="maxCashPayment"
+              v-model="cashPayment"
+              :dotSize="slider.dotSize"
+              :height="slider.height"
+              :silent="true"
+              :contained="true"
+              :drag-on-click="true"
+              :tooltip="'always'"
+              @drag-end="sliderChange($event)"
+            )
+              <template #tooltip="{ index }">
+                <div><strong>{{calculatedCashPaymentPrice}} <span class="tooltip-text-small">kr</span> ({{ cashPayment }}%)</strong></div>
+              </template>
 
       MonthChoiser(
         :fixedCostsBy="fixedCostsByDistance"
@@ -74,13 +76,16 @@
 </template>
 
 <script>
+import ClientOnly from 'vue-client-only'
+
 import CostsMixin from '~/components/Product/Steps/Costs/mixins/CostsMixin.js'
 import CostsSliderMixin from '~/components/Product/Steps/Costs/mixins/CostsSliderMixin.js'
 import MonthChoiser from '~/components/Product/Steps/Costs/costs-parts/month.vue'
 
 export default {
   components: {
-    MonthChoiser
+    MonthChoiser,
+    ClientOnly
   },
   mixins: [CostsMixin, CostsSliderMixin],
   computed: {

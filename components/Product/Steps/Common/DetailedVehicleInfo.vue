@@ -21,7 +21,7 @@
         span {{ vehicle.roadsideAssist.name }}
     .step-subtitle.m-t-20 Leverans
     ul.model-char-list.m-t-10
-      li.model-char-list-item(v-if="isRental(this.finance_form_name)")
+      li.model-char-list-item(v-if="isRental")
         span Uthämtningsdatum & klockslag
         span {{ pickUpDate }} {{ pickUpTime }}
       li.model-char-list-item

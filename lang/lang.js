@@ -12,6 +12,7 @@ const message = {
   en: {
     'privat': 'private',
     'företag': 'corporate',
+    'foretag': 'corporate',
     'Privatleasing': 'Private leasing',
     'Långtidshyra': 'Private rental',
     'Avbetalning': 'Down payment',

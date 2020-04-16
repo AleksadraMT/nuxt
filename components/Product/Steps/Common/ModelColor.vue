@@ -20,7 +20,7 @@
               :class="{'model-color-met' : modelColor.metallic}"
               :style="`background: ${modelColor.hex}`"
             )
-              i.fas.fa-check
+              i.fa.fa-check
       span {{ modelColor.name }}
       span.red-text &nbsp;+&nbsp;{{ formatPrice(modelColor.calculated_price) }}&nbsp;kr/mån
         span(v-if="deliveryTime && modelColor.delivery_days_from !== null && modelColor.delivery_days_to !== null")

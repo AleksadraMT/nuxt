@@ -27,17 +27,17 @@
           .input-group-prepend
             span.input-group-text
               i.far.fa-clock
-          ValidationProvider(v-slot="{ errors }" name="pickUpTime" rules="required")
-            select#step-time.custom-select(
-              v-model="pickUpTime"
-              :class="{'is-invalid': errors[0]}"
-            )
-              option(selected="" disabled="" value="") Välj en tid
-              option(
-                v-for="(item, index) in times"
-                :value="item.time" 
-                :key="index"
-              ) {{ item.time }}
+            ValidationProvider(v-slot="{ errors }" name="pickUpTime" rules="required" style="width: 100%")
+              select#step-time.custom-select(
+                v-model="pickUpTime"
+                :class="{'is-invalid': errors[0]}"
+              )
+                option(selected="" disabled="" value="") Välj en tid
+                option(
+                  v-for="(item, index) in times"
+                  :value="item.time" 
+                  :key="index"
+                ) {{ item.time }}
 </template>
 
 <script>

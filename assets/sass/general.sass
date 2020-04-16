@@ -261,9 +261,9 @@ img[src*="secure.adnxs.com"]
     position: absolute
     display: inline-block
     top: 5px
-    left: 5px
+    left: 4px
     bottom: 5px
-    right: 5px
+    right: 4px
     background-image: url('~@/assets/img/icon-tooltip-info.png')
     background-size: contain
     background-repeat: no-repeat
@@ -1201,6 +1201,9 @@ img[src*="secure.adnxs.com"]
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out
 
+  &textarea
+    height: auto
+
 .btn
   display: inline-block
   font-weight: 400
@@ -1231,5 +1234,44 @@ img[src*="secure.adnxs.com"]
 .text-left 
   text-align: left!important
 
+.text-sm-right
+  text-align: right
+
 .justify-content-center
   justify-content: center
+
+.justify-content-between
+  justify-content: space-between
+
+.input-group-prepend 
+  display: flex
+
+.input-group-text
+  display: flex
+  align-items: center
+  padding: .375rem .75rem
+  margin-bottom: 0
+  font-size: 1rem
+  font-weight: 400
+  line-height: 1.5
+  color: #495057
+  text-align: center
+  white-space: nowrap
+  background-color: #e9ecef
+  border: 1px solid #ced4da
+  border-radius: .25rem
+
+  i
+    line-height: 1.5
+
+.form-control[readonly]
+  background-color: #e9ecef
+  opacity: 1
+
+.text-danger
+  color: red
+
+.form-group
+  label
+    padding: 10px 0
+    display: inline-block

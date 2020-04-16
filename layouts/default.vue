@@ -26,16 +26,7 @@ export default {
     })
   },
   mounted() {
-    const siteStyle = localStorage.getItem('siteStyle')
-
-    if (siteStyle === null) {
-      this.$siteStyle(this.style)
-      localStorage.setItem('siteStyle', JSON.stringify(this.style))
-    } else {
-      this.$siteStyle(JSON.parse(siteStyle))
-    }
-
-    localStorage.setItem('Authorization', this.token)
+    this.$siteStyle(this.style)
   },
   head() {
     return this.metaData({

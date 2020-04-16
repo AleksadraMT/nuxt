@@ -17,8 +17,6 @@ const isHasValue = (value) => {
   return value !== undefined && value !== null && value !== ''
 }
 
-let call = true
-
 export default {
   data: () => ({
     slider: {
@@ -188,32 +186,6 @@ export default {
         tooltip.style.left = `-${tooltipHalfWidth - 25}px`
       } else {
         tooltip.style.left = `50%`
-      }
-    }
-  },
-  watch: {
-    residual(n) {
-      if (
-        (n || n === 0) &&
-        (this.cashPayment || this.cashPayment === 0) &&
-        this.vehicleCostId &&
-        call
-      ) {
-        this.FETCH_CALC_DEPENDENCIES()
-
-        call = false
-      }
-    },
-    cashPayment(n) {
-      if (
-        (this.residual || this.residual === 0) &&
-        (n || n === 0) &&
-        this.vehicleCostId &&
-        call
-      ) {
-        this.FETCH_CALC_DEPENDENCIES()
-
-        call = false
       }
     }
   }

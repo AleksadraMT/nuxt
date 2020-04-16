@@ -70,7 +70,7 @@ export const getters = {
             (accessor) => accessor.id === item
           )
 
-          price += accessor.calculated_price || 0
+          price += accessor ? accessor.calculated_price : 0
         })
       }
 
@@ -241,16 +241,22 @@ export const actions = {
       { root: true }
     )
 
-    dispatch(
-      'order/SET',
-      { mutation: 'setTotalMonthlyPrice', value: getPrice(cost) },
-      { root: true }
-    )
-
     commit('setVehicle', vehicle)
     dispatch('NEW_DEFAULTS')
+
+    dispatch(
+      'order/SET',
+      { mutation: 'setTotalMonthlyPrice', value: getters.calculatePrice },
+      { root: true }
+    )
   },
-  async FETCH_CALC_DEPENDENCIES({ commit, dispatch, rootState, state }) {
+  async FETCH_CALC_DEPENDENCIES({
+    commit,
+    dispatch,
+    rootState,
+    state,
+    getters
+  }) {
     const response = await ProductApi.calculateDependencies({
       id: rootState.order.vehicleCostId,
       auth: rootState.reseller.token,
@@ -286,6 +292,12 @@ export const actions = {
     }
 
     commit('setVehicle', newVehicle)
+
+    dispatch(
+      'order/SET',
+      { mutation: 'setTotalMonthlyPrice', value: getters.calculatePrice },
+      { root: true }
+    )
   },
   updateSortedCosts({ commit }, data) {
     commit('setSortedCosts', data)

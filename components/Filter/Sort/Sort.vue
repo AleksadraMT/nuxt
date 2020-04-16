@@ -1,9 +1,9 @@
 <template lang="pug">
   .page-filter.text-sm-right
     span.custom-select-title.m-r-10  Sortera bilarna
-    //- @change="getVehicles(false)"
     select.custom-select.w-a.d-inline-block(
       v-model="selectedTypeOfSort"
+      @change="FETCH_ALL({ toNextPage: false })"
     )
       option(
         v-for="option in sortedBy" 

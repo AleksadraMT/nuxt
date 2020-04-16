@@ -5,14 +5,12 @@
         h1.banner-heading Beställ din bil online.
         h5.banner-subheading Snabbt, enkelt & tryggt genom Leaseonline.
         .banner-content-btns
-          //- @click="setSortVariant($event, 'asc')"
           .white-btn.scroll-item(
             title="Sök bil nu!" 
-            data-id="filter"
+            @click.prevent="UPDATE_VIEW({toThe: 'filter', sort: 'asc'})"
           ) Sök
-          //- @click="setSortVariant($event, 'campaign')"
           .scroll-item( 
-            data-id="list-sort"
+            @click.prevent="UPDATE_VIEW({toThe: 'list-sort', sort: 'campaign'})"
           ) Se kampanjer
 
     .main-campaign-wrapper
@@ -35,7 +33,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import ProductApi from '~/api/product'
 
 export default {
@@ -53,6 +51,7 @@ export default {
     })
   },
   methods: {
+    ...mapActions('filters', ['UPDATE_VIEW']),
     async getCampaignCar() {
       const { link } = this.campaigns
 

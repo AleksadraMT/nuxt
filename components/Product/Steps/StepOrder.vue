@@ -15,7 +15,7 @@
             :description="`${vehicle.grade} ${vehicle.name}`"
           )
 
-      ValidationObserver(ref="observer" v-slot="{ invalid }" tag="form" @submit.prevent)
+      ValidationObserver(ref="stepThreeObserver" v-slot="{ invalid }")
         .row.m-t-10
           .col-md-6
             .step-text.m-t-10 {{ siteStyle.intro }}
@@ -124,7 +124,7 @@
             .form-group
               label(for="inp13") Övriga frågor / Kommentarer
               textarea#inp13.form-control(
-                rows="4" 
+                rows="6"
                 v-model="comments"
               )
             ValidationProvider.form-group(v-if="terms.active" v-slot="{ errors }" name="confirmTerm" rules="required")
@@ -313,7 +313,7 @@ export default {
     ...mapActions('product', ['updatePersonNumberError']),
     ...mapActions('order', ['postOrder', 'sendBankId']),
     async sendOrder() {
-      const isValid = await this.$refs.observer.validate()
+      const isValid = await this.$refs.stepThreeObserver.validate()
 
       if (!isValid) return
 
@@ -338,7 +338,14 @@ export default {
         query: {
           id: this.vehicle.id,
           key: postOrderData.id,
-          collectionType: this.$route.params.collectionType
+          base: this.$route.params.base
+        },
+        params: {
+          base: this.$route.params.base,
+          type: this.replaceSpaces(this.vehicle.type),
+          brand: this.replaceSpaces(this.vehicle.brand),
+          model: this.replaceSpaces(this.vehicle.model),
+          name: this.replaceSpaces(this.vehicle.name)
         }
       })
 
@@ -374,6 +381,9 @@ export default {
       } else if (response && response.status === 204) {
         this.$router.push({ name: 'base-noorder' })
       }
+    },
+    replaceSpaces(text) {
+      return text.replace(/ /g, '-').toLowerCase()
     }
   }
 }

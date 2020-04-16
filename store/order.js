@@ -28,8 +28,8 @@ export const state = () => ({
   comments: '',
   totalMonthlyPrice: '',
   drivingLicense: '',
-  residual: 0,
-  cash_payment: 0
+  residual: null,
+  cash_payment: null
 })
 
 export const getters = {}

@@ -13,18 +13,18 @@
           .sub-menu-link.j-bodies-list(
             @click="SET({mutation: 'setCategoriesListVisible', value: !categoriesListVisible})"
           ) Biltyper
-          //- @click.prevent="scrollToBlock($event)" data-id="footer-block"
           a.sub-menu-link.scroll-item( 
             href="#"
+            @click="UPDATE_VIEW({toThe: 'footer-block'})"
           )  Kundtjänst
           nuxt-link.sub-menu-link(
             v-if="isPrivate"
-            :to="{ name: 'base-omleaseonline', params: {base: $route.params.base}}"
+            :to="{ name: 'base-om-leaseonline', params: {base: $route.params.base}}"
             ) Om Leaseonline
-          //- @click.prevent="scrollToBlock($event, 'home')" data-id="seo-block"
           a.sub-menu-link.scroll-item(
             v-if="isPrivate"
             href="#"
+            @click="UPDATE_VIEW({toThe: 'seo-block'})"
           ) Om Privatleasing
           a.sub-menu-link.j-brand-list(
             :href="`/${$route.params.base}/bilmarken`"
@@ -33,12 +33,11 @@
           nuxt-link.sub-menu-link( 
             :to="{ name: 'base-faq', params: {base: $route.params.base}}"
             ) Vanliga frågor och svar
-          //- @click.prevent="scrollToBlock($event, 'home')"
           a.sub-menu-link.scroll-item( 
             v-if="isPrivate"
             href="#"
-            data-open-seo-block
-            ) Betalning och leveransinformation
+            @click="UPDATE_VIEW({toThe: 'betalning', openSeo: true})"
+          ) Betalning och leveransinformation
           a.sub-menu-link(href="http://www.ecarsuite.com/" target="_blank") E-car Suite för återförsäljare
 </template>
 
@@ -64,7 +63,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions('settings', ['SET'])
+    ...mapActions('settings', ['SET']),
+    ...mapActions('filters', ['UPDATE_VIEW'])
   }
 }
 </script>

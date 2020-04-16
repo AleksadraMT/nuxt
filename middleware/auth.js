@@ -16,9 +16,13 @@ export default async function({ route, redirect, store, commit }) {
 
   await store.dispatch('reseller/FETCH_AUTH')
 
+  const defaultCollection =
+    translate('en', route.params.base) ||
+    store.state.reseller.resellerInfo.settings.defaultFinanceFormType
+
   await store.dispatch(
     'reseller/UPDATE_COLLECTION_NAME',
-    store.state.reseller.resellerInfo.settings.defaultFinanceFormType.toLowerCase()
+    defaultCollection.toLowerCase()
   )
 
   await store.dispatch('filters/UPDATE_DEFAULTS')

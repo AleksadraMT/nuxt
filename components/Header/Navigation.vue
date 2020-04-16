@@ -8,21 +8,23 @@
           img.nav-link-icon(src="~@/assets/img/header/icon-menu.svg")
           span.nav-link-text Meny
           i.nav-link-angle-down.fas.fa-angle-down.p-l-10.hide-on-small
-      //- li.nav-item.scroll-item(@click="setSortVariant($event, 'asc')" data-id="filter")
-      li.nav-item.scroll-item(data-id="filter")
+      li.nav-item.scroll-item(
+        @click.prevent="UPDATE_VIEW({toThe: 'filter', sort: 'asc'})"
+      )
         nuxt-link.nav-link(:to="{name: 'base', params: {base: $route.params.base}}")
           img.nav-link-icon(src="~@/assets/img/header/icon-search.svg")
           span.nav-link-text Sök bil
       li.nav-item.hide-on-small
-        //- @click="setSortVariant($event, 'campaign')"
-        .nav-link.scroll-item( 
+        .nav-link.scroll-item(
+          @click.prevent="UPDATE_VIEW({toThe: 'list-sort', sort: 'campaign'})"
           data-id="list-sort"
         ) 
           img.nav-link-icon(src="~@/assets/img/header/icon-campaign.svg")
           span.nav-link-text Kampanjer
       li.nav-item.hide-on-small
-        //- @click.prevent="scrollToBlock($event)" 
-        .nav-link.scroll-item( data-id="footer-block" )
+        .nav-link.scroll-item(
+          @click.prevent="UPDATE_VIEW({toThe: 'footer-block'})"
+        )
           img.nav-link-icon(src="~@/assets/img/header/icon-mail.svg")
           span.nav-link-text Kontakta oss
       li.nav-item
@@ -30,8 +32,9 @@
           img.nav-link-icon(src="~@/assets/img/header/icon-phone.svg")
           span.nav-link-text 0200-210320
       li.nav-item.visible-on-small.visible-on-small-flex
-        //- @click.prevent="scrollToBlock($event)"
-        .nav-link.scroll-item( data-id="footer-block" )
+        .nav-link.scroll-item(
+          @click.prevent="UPDATE_VIEW({toThe: 'footer-block'})"
+        )
           img.nav-link-icon(src="~@/assets/img/header/icon-mail.svg")
           span.nav-link-text Kontakta oss
 </template>
@@ -45,7 +48,8 @@ export default {
     ...mapState('settings', ['subMenuVisibility'])
   },
   methods: {
-    ...mapActions('settings', ['SET'])
+    ...mapActions('settings', ['SET']),
+    ...mapActions('filters', ['UPDATE_VIEW'])
   }
 }
 </script>

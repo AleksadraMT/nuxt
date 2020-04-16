@@ -17,6 +17,7 @@
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 
 import Helper from '~/mixins/Helper'
+import CostsMixin from '~/components/Product/Steps/Costs/mixins/CostsMixin.js'
 
 export default {
   components: {
@@ -26,13 +27,13 @@ export default {
     corporaterental: () => import('./costs-components/corporaterental'),
     corporateleasing: () => import('./costs-components/corporateleasing')
   },
-  mixins: [Helper],
+  mixins: [Helper, CostsMixin],
   data: () => ({
     sortedCosts: {},
     sendCosts: true
   }),
   computed: {
-    ...mapState('product', ['vehicle', 'residualVisibility']),
+    ...mapState('product', ['vehicle', 'residualVisibility', 'modelColor']),
     ...mapState('reseller', {
       financeForms: (state) =>
         state.resellerInfo.financeForms &&
@@ -54,7 +55,7 @@ export default {
     this.getCostsObj()
   },
   methods: {
-    ...mapActions('product', ['updateSortedCosts']),
+    ...mapActions('product', ['updateSortedCosts', 'FETCH_CALC_DEPENDENCIES']),
     ...mapActions('reseller', ['FETCH_STYLE']),
     ...mapMutations('product', ['setResidualVisibility']),
     ...mapMutations('filters', ['setFinanceFormName', 'setFinanceFormId']),
@@ -102,9 +103,19 @@ export default {
         this.setResidualVisibility(this.isHasPriceData('allow_residual'))
 
       this.SET({
-        mutation: 'setTotalMonthlyPrice',
-        value: this.getDefaults[tabName].price
+        mutation: 'setVehicleCostId',
+        value: this.getDefaults[tabName].id
       })
+
+      this.SET({
+        mutation: 'setTotalMonthlyPrice',
+        value: this.includeColorAndAccessories(
+          this.getDefaults[tabName].price,
+          tabName
+        )
+      })
+
+      await this.FETCH_CALC_DEPENDENCIES()
 
       this.sendCosts = true
     },

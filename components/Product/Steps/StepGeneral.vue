@@ -22,8 +22,8 @@
       .row
         .col-md-6.order-md-1.order-2
           .d-none.d-md-block
-            .step-title.m-t-10 1. {{ siteStyle.headline }}
-            .step-text.m-t-10 {{ siteStyle.intro }}
+            .step-title.m-t-10 1. {{ firstStep.headline }}
+            .step-text.m-t-10 {{ firstStep.intro }}
       .row
         .col-md-6.order-md-1.order-2
           .d-sm-none.d-xs-none.d-md-block.d-lg-block.d-none
@@ -34,17 +34,18 @@
             .step-subtitle.m-t-20 Välj finanslösning
             .step-subtitle-container
               Costs
+            ValidationObserver(ref="observer" v-slot="{ invalid }")
+              Delivery
 
-            Delivery
+              Pickup
 
-            Pickup
-
-          .m-b-20
-            a.step-btn.btn-hover(
-              href="!#"
-              @click.prevent="goTo"
-            ) {{ firstStepButton }}
-              i.fas.fa-chevron-right
+              .m-b-20
+                a.step-btn.btn-hover(
+                  href="!#"
+                  @click.prevent="goTo"
+                  :disabled="invalid"
+                ) {{ firstStepButton }}
+                  i.fas.fa-chevron-right
 
         .col-md-6.order-md-2.order-1.m-t-20
           MainVehicleInfo
@@ -66,6 +67,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { ValidationObserver } from 'vee-validate'
 import Gallery from '~/components/Common/Galery.vue'
 
 import ModelColor from '~/components/Product/Steps/Common/ModelColor.vue'
@@ -86,12 +88,13 @@ export default {
     Delivery,
     MainVehicleInfo,
     CollapseBox,
-    Pickup
+    Pickup,
+    ValidationObserver
   },
   computed: {
     ...mapState('product', ['modelColor', 'vehicle']),
     ...mapState('reseller', {
-      siteStyle: (state) => state.siteStyle,
+      firstStep: (state) => state.siteStyle.firstStep,
       firstStepButton: (state) =>
         state.siteStyle.firstStep
           ? state.siteStyle.firstStep.submit_btn_text
@@ -104,8 +107,10 @@ export default {
     }
   },
   methods: {
-    goTo() {
-      this.$emit('goTo', 1)
+    async goTo() {
+      const isValid = await this.$refs.observer.validate()
+
+      if (isValid) this.$emit('goTo', 1)
     },
     setDataLayerForDownloadBrochure() {
       // if (Object.keys(this.vehicle).length !== 0 && this.vehicle) {

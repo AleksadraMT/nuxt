@@ -35,5 +35,5 @@ export default async function({ route, redirect, store, commit }) {
     values: [id]
   })
 
-  await store.dispatch('product/FETCH_ALL', { toNextPage: true })
+  await store.dispatch('product/FETCH_ALL', { toNextPage: false })
 }

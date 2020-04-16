@@ -89,11 +89,6 @@ export default {
     replaceSpaces(text) {
       return text.replace(/ /g, '-').toLowerCase()
     },
-    getDays(days, flag) {
-      const daysParam = this.getDaysOrWeeks(days, flag)
-
-      return `${daysParam.number} ${daysParam.text}`
-    },
     deliveryDaysCountFrom() {
       let daysFrom = null
 
@@ -105,9 +100,7 @@ export default {
         daysFrom = getDefaultModelColor
           ? getDefaultModelColor.delivery_days_from
           : this.vehicle.modelColors.data[0].delivery_days_from
-      } else if (
-        ['Private rental', 'Corporate rental'].includes(this.finance_form_name)
-      ) {
+      } else if (this.isRental) {
         daysFrom =
           this.vehicle.deliveryTime.days_count &&
           this.vehicle.deliveryTime.days_count !== null
@@ -121,9 +114,7 @@ export default {
             : this.vehicle.deliveryTime.days_count
       }
 
-      return !['Private rental', 'Corporate rental'].includes(
-        this.finance_form_name
-      )
+      return !this.isRental
         ? this.getDays(daysFrom, false)
         : `från ${this.getDays(daysFrom, 'short')}`
     },
@@ -131,8 +122,11 @@ export default {
       let daysTo = null
 
       if (this.vehicle.modelColors && this.vehicle.modelColors.data.length) {
-        daysTo = this.vehicle.modelColors.data.find((item) => item.default)
-          .delivery_days_to
+        const color = this.vehicle.modelColors.data.find((item) => item.default)
+
+        daysTo = color
+          ? color.delivery_days_to
+          : this.vehicle.modelColors.data[0].delivery_days_to
       } else {
         daysTo = this.vehicle.deliveryTime.to
       }

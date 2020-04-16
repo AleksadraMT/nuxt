@@ -20,6 +20,7 @@
 import { mapGetters } from 'vuex'
 
 import Helper from '~/mixins/Helper'
+import translate from '~/lang/lang.js'
 
 export default {
   mixins: [Helper],
@@ -43,7 +44,12 @@ export default {
     }
   },
   methods: {
-    changeCollection() {}
+    changeCollection(item) {
+      window.location.replace(
+        window.location.origin +
+          `/${translate('sv', item.toLowerCase()).replace(/[ö]/g, 'o')}`
+      )
+    }
   }
 }
 </script>

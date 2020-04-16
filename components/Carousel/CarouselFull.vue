@@ -1,29 +1,31 @@
 <template lang="pug">
   div(v-if="isHasItems")
-    carousel.slider(
-      :loop="loop"
-      :navigationEnabled="navigationEnabled"
-      :navigationNextLabel="navigationNextLabel"
-      :navigationPrevLabel="navigationPrevLabel"
-      :perPageCustom="perPageCustom"
-      :paginationPadding="paginationPadding"
-      :perPage="perPage"
-      :autoplay="isAutoplay"
-      :autoplayTimeout="3000"
-    )
-      slide(
-        v-for="(item, key) in carouselItems"
-        :key="key"
+    ClientOnly
+      carousel.slider(
+        :loop="loop"
+        :navigationEnabled="navigationEnabled"
+        :navigationNextLabel="navigationNextLabel"
+        :navigationPrevLabel="navigationPrevLabel"
+        :perPageCustom="perPageCustom"
+        :paginationPadding="paginationPadding"
+        :perPage="perPage"
+        :autoplay="isAutoplay"
+        :autoplayTimeout="3000"
       )
-        CarouselItem(
-          :data="item"
+        slide(
+          v-for="(item, key) in carouselItems"
+          :key="key"
         )
+          CarouselItem(
+            :data="item"
+          )
 </template>
 
 <script>
 /* eslint-disable vue/require-default-prop */
 import { mapState } from 'vuex'
 
+import ClientOnly from 'vue-client-only'
 import Carousel from 'vue-carousel/src/Carousel.vue'
 import Slide from 'vue-carousel/src/Slide.vue'
 import CarouselItem from './CarouselItem'
@@ -33,7 +35,8 @@ export default {
   components: {
     CarouselItem,
     Carousel,
-    Slide
+    Slide,
+    ClientOnly
   },
   props: {
     loop: Boolean,

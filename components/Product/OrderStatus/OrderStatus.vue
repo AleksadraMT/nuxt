@@ -84,12 +84,10 @@ export default {
     ]),
     ...mapState('order', ['totalMonthlyPrice']),
     daysFrom() {
-      // this.deliveryDaysCountFrom
-      return this.getDaysOrWeeks(14, 'short')
+      return this.getDaysOrWeeks(this.deliveryDaysCountFrom, 'short')
     },
     daysTo() {
-      // this.deliveryDaysCountTo
-      return this.getDaysOrWeeks(28, 'short')
+      return this.getDaysOrWeeks(this.deliveryDaysCountTo, 'short')
     }
   },
   methods: {
