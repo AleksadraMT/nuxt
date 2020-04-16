@@ -20,7 +20,7 @@ export default {
       }
     },
     metaData(data) {
-      const { title, logo, description, keywords, url } = data
+      const { title, logo, description, keywords, url, image } = data
 
       return {
         title,
@@ -45,6 +45,7 @@ export default {
             content: keywords || ''
           },
           { property: 'og:url', content: url || 'http://leaseonline.se/' },
+          { property: 'og:image', content: image },
           { property: 'og:locale', content: 'sv_SE' },
           { property: 'og:type', content: 'website' },
           { property: 'og:title', content: title },

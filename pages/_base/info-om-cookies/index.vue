@@ -478,7 +478,8 @@ export default {
     return this.metaData({
       title: this.metaTitle,
       logo: this.style.logoFont.favicon,
-      description: this.metaDescription
+      description: this.metaDescription,
+      image: this.style.topHeaders.data[0].image_xs
     })
   }
 }

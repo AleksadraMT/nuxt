@@ -33,7 +33,8 @@ export default {
       title: this.style.logoFont.title,
       logo: this.style.logoFont.favicon,
       description: this.metaDescription,
-      url: this.resellerInfo.url
+      url: this.resellerInfo.url,
+      image: this.style.topHeaders.data[0].image_xs
     })
   },
   middleware: 'auth'

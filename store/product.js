@@ -203,15 +203,6 @@ export const actions = {
       { root: true }
     )
 
-    commit('setVehicleMeta', {
-      title: `${metaData.title || ''} ${vehicle.category} ${vehicle.brand} 
-        ${vehicle.model} ${vehicle.name}`,
-      description: `${metaData.description || ''} ${vehicle.description} 
-        ${vehicle.specs}`,
-      keywords: `${metaData.keywords || ''}`,
-      url: `${metaData.url || ''}`
-    })
-
     const cost = vehicle.costs.data
       .filter(
         (item) => item.finance_form === rootState.filters.finance_form_name
@@ -234,6 +225,16 @@ export const actions = {
       modelColorsArr.data.find((item) => item.default) || modelColorsArr.data
 
     commit('setModelColor', modelColor)
+
+    commit('setVehicleMeta', {
+      title: `${metaData.title || ''} ${vehicle.category} ${vehicle.brand} 
+        ${vehicle.model} ${vehicle.name}`,
+      description: `${metaData.description || ''} ${vehicle.description} 
+        ${vehicle.specs}`,
+      keywords: `${metaData.keywords || ''}`,
+      url: `${metaData.url || ''}`,
+      image: modelColor && modelColor.image ? modelColor.image.url : ''
+    })
 
     dispatch(
       'order/SET',

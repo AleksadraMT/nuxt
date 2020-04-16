@@ -99,7 +99,8 @@ export default {
       logo: this.siteStyle.logoFont.favicon,
       description: this.metaDescription,
       keywords: this.metaKeywords,
-      url: this.$route.fullPath
+      url: this.$route.fullPath,
+      image: this.modelData.title_image
     })
   },
   middleware: 'modelLanding'

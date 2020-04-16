@@ -11,7 +11,7 @@
       .text-center
         router-link(
           class="faq-links-btn btn btn-og invert btn-hover"
-          :to="{ name: 'faq', params: {collectionType: $route.params.collectionType}}"
+          :to="{ name: 'base-faq', params: {collectionType: $route.params.collectionType}}"
         ) SE FLER FRÅGR & SVAR
 
 </template>

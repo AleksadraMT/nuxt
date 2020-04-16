@@ -37,7 +37,8 @@ export default {
       logo: this.style.logoFont.favicon,
       description: this.vehicleMeta.description,
       keywords: this.vehicleMeta.keywords,
-      url: this.vehicleMeta.url
+      url: this.vehicleMeta.url,
+      image: this.vehicleMeta.image
     })
   },
   middleware: 'vehicle'
